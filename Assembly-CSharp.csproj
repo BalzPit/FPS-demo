@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{64E2F6C6-1576-AED7-02C5-6D94F5E99C09}</ProjectGuid>
+    <ProjectGuid>{153BBFB4-78F4-F45A-3BA7-E6BD29445A16}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -68,8 +68,6 @@
     <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleExamples.cs" />
     <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
     <Compile Include="Assets\EffectExamples\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\grenade.cs" />
-    <Compile Include="Assets\grenadeEffect.cs" />
     <Compile Include="Assets\MilkShake\Demo\Scripts\CameraDistance.cs" />
     <Compile Include="Assets\MilkShake\Demo\Scripts\CameraSwitcher.cs" />
     <Compile Include="Assets\MilkShake\Demo\Scripts\CustomShake.cs" />
@@ -84,11 +82,14 @@
     <Compile Include="Assets\MilkShake\Scripts\ShakeResult.cs" />
     <Compile Include="Assets\MilkShake\Scripts\ShakeState.cs" />
     <Compile Include="Assets\MilkShake\Scripts\ShakeType.cs" />
-    <Compile Include="Assets\scripts\player\Abilities.cs" />
-    <Compile Include="Assets\scripts\player\camRecoil.cs" />
-    <Compile Include="Assets\scripts\player\MouseLook.cs" />
-    <Compile Include="Assets\scripts\player\PlayerMovement.cs" />
-    <Compile Include="Assets\scripts\player\WeaponContainer.cs" />
+    <Compile Include="Assets\scripts\enitities\enemies\EnemyStatus.cs" />
+    <Compile Include="Assets\scripts\enitities\player\Abilities.cs" />
+    <Compile Include="Assets\scripts\enitities\player\camRecoil.cs" />
+    <Compile Include="Assets\scripts\enitities\player\MouseLook.cs" />
+    <Compile Include="Assets\scripts\enitities\player\PlayerMovement.cs" />
+    <Compile Include="Assets\scripts\enitities\player\PlayerStatus.cs" />
+    <Compile Include="Assets\scripts\enitities\player\WeaponContainer.cs" />
+    <Compile Include="Assets\scripts\weapons\grenade.cs" />
     <Compile Include="Assets\scripts\weapons\PickUpSystem.cs" />
     <Compile Include="Assets\scripts\weapons\PistolShooting.cs" />
     <Compile Include="Assets\scripts\weapons\SniperShooting.cs" />
@@ -97,19 +98,19 @@
     <None Include="Assets\MilkShake\Documentation\Readme.txt" />
     <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -313,13 +314,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.14f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/pitba/Documents/UnityProjects/Runner/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/pitba/Documents/UnityProjects/Gaem/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

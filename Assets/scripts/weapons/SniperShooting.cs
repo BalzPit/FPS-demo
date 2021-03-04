@@ -26,7 +26,7 @@ public class SniperShooting : Weapon
 
     public Transform attackPoint, pistol;
     RaycastHit rayHit;
-    LayerMask whatIsEnemy;
+    public LayerMask damageable;
     
 
     //Graphics
@@ -107,21 +107,19 @@ public class SniperShooting : Weapon
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))//, whatIsEnemy))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))//, damageable))//, whatIsEnemy))
         {
             //Debug.Log(rayhit.collider.name);
             Debug.Log(rayHit.collider.name);
 
-            /*
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 //enemy needs to be tagged as "Enemy" and have a script with the "TakeDamage" function
-                rayHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);
+                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage);
             }
-            */
         }
 
-        
+
 
         Debug.DrawLine(fpsCam.transform.position, rayHit.point, new Color(256, 0, 0), 10f);
         Debug.DrawRay(rayHit.point, rayHit.normal, new Color(0, 256, 0), 10f);

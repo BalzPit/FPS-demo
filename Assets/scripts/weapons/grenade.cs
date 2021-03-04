@@ -6,11 +6,19 @@ public class grenade : MonoBehaviour
     float explosion_timer;
     bool exploding;
 
+    public Rigidbody rb;
+    //public Transform effects;
+
+    public GameObject explosion_effect;
+    public GameObject smoke_effect;
+
     // Start is called before the first frame update
     void Start()
     {
         exploding = false;
         explosion_timer = 0;
+
+        Instantiate(smoke_effect, transform.position, Quaternion.identity, transform);
     }
 
     // Update is called once per frame
@@ -30,14 +38,22 @@ public class grenade : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision");
-        //start explosion timer
-        exploding = true;
+        if (!exploding)
+        {
+            Debug.Log("Collision");
+            //start explosion timer
+            exploding = true;
+
+            //decrease grenade velocity on impact to make it more predictable
+            rb.velocity *= 0.5f;
+        }
     }
 
     void Explode()
     {
         Debug.Log("Explode");
+
+        Instantiate(explosion_effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

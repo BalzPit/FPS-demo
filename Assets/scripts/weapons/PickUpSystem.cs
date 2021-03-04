@@ -111,7 +111,6 @@ public class PickUpSystem : MonoBehaviour
         coll.isTrigger = false;
 
         //gun carries momentum of player       
-        //rb.velocity = player.GetComponent<Rigidbody>().velocity;
         //calculate current velocity
         velocity = (current_pos - prev_pos) / Time.deltaTime;
         rb.velocity = velocity;

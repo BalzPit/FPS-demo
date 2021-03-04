@@ -28,10 +28,9 @@ public class Abilities : MonoBehaviour
     void throwGrenade()
     {
         GameObject grnd = Instantiate(grenade, grenadeSpawnPoint.position, Quaternion.identity);
-        Rigidbody rb = grnd.GetComponent<Rigidbody>();
+        Rigidbody rb = grnd.GetComponent<Rigidbody>();      
 
         //add grenade throw force
         rb.AddForce(fpsCam.transform.forward * forward_force, ForceMode.Impulse);
-        //rb.AddForce(fpsCam.up * dropUpwardForce, ForceMode.Impulse);
     }
 }

@@ -116,6 +116,9 @@ MonoBehaviour:
   shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
   attackPoint: {fileID: 8126890605971761427}
   pistol: {fileID: 8126890605174320953}
+  damageable:
+    serializedVersion: 2
+    m_Bits: 1024
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,

@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     
     //gravity
     float gravity = 3* -9.81f;
-    //store player movement speed
+    //set player movement speed
     float speed;
     //walk speed
     float walkSpeed = 12f;
@@ -46,7 +46,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 slide_movement;
     Vector3 new_direction;
     public static Vector3 recoil_direction;
-    
+    /*calculate player velocity
+    Vector3 prev_pos;
+    Vector3 current_pos;
+    public static Vector3 playerVelocity;
+    */
+
     //----------------------BOOLS
 
     bool onGround;
@@ -69,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
         crouch_press = false;
         crouched = false;
         sliding = false;
+
+        //prev_pos = transform.position;
+        //current_pos = transform.position;
     }
 
     // Update is called once per frame
@@ -93,6 +101,12 @@ public class PlayerMovement : MonoBehaviour
             //save movement direction
             slide_movement = air_movement;
         }
+
+        /*update positions and compute player velocity
+        prev_pos = current_pos;
+        current_pos = transform.position;
+        playerVelocity = (current_pos - prev_pos) / delta;
+        */
 
         //======================== HORIZONTAL movement ==========================
 
@@ -227,8 +241,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * delta);
 
     }
-
-
+    
 
 
     private void Crouch()
@@ -241,8 +254,7 @@ public class PlayerMovement : MonoBehaviour
         speed = crouchSpeed;
     }
 
-
-
+    
 
     private void unCrouch()
     {
@@ -290,6 +302,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+
     /*
      * other scripts can call this function to stop sprinting when performing other actions
      */
@@ -301,6 +314,7 @@ public class PlayerMovement : MonoBehaviour
             sprint_locked = true;
         }
     }
+
 
 
     public static void Recoil(float rec, Vector3 dir)
