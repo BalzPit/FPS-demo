@@ -12,8 +12,11 @@ public class PickUpSystem : MonoBehaviour
     public Vector3 local_position;
     public Vector3 local_rotation;
 
+    float throw_force;
+    float maxforce = 30f;
+    float kept_velocity_rate = 0.2f;
     public float pickUpRange;
-    public float dropForwardForce, dropUpwardForce;
+    public float minDropForwardForce, dropUpwardForce;
 
     public bool equipped;
     public static bool slotFull;
@@ -23,11 +26,18 @@ public class PickUpSystem : MonoBehaviour
     Vector3 current_pos;
     Vector3 velocity;
 
+    RaycastHit rayHit;
+
+    Collider weaponCollider;
+    public LayerMask damageable;
+
     // Start is called before the first frame update
     void Start()
     {
         prev_pos = transform.position;
         current_pos = transform.position;
+
+        throw_force = minDropForwardForce;
 
         //initial setup
         if (!equipped)
@@ -48,13 +58,16 @@ public class PickUpSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 distanceToPlayer = player.position - transform.position;
+        float distanceToPlayer = (player.position - transform.position).magnitude;
 
         //check if player is trying to interact with the weapon
-        if (Input.GetKeyDown(KeyCode.E) && distanceToPlayer.magnitude <= pickUpRange && !equipped && !slotFull)
+        if (Input.GetKeyDown(KeyCode.E) && distanceToPlayer <= pickUpRange && !equipped && !slotFull)
         {
-             //pick up weapon
-             PickUp();
+            if (!wallCheck(distanceToPlayer))
+            {
+                //pick up weapon
+                PickUp();
+            }
         }
 
         //drop weapon
@@ -64,7 +77,16 @@ public class PickUpSystem : MonoBehaviour
             prev_pos = current_pos;
             current_pos = transform.position;
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Q))
+            {
+                if (throw_force < maxforce)
+                {
+                    //increase throw force
+                    throw_force += 50*Time.deltaTime;
+                }
+            }
+            //drop/throw weapon
+            if (Input.GetKeyUp(KeyCode.Q))
             {
                 Drop();
             }
@@ -116,12 +138,50 @@ public class PickUpSystem : MonoBehaviour
         rb.velocity = velocity;
 
         //add gun throw force
-        rb.AddForce(fpsCam.forward * dropForwardForce, ForceMode.Impulse);
+        rb.AddForce(fpsCam.forward * throw_force, ForceMode.Impulse);
         rb.AddForce(fpsCam.up * dropUpwardForce, ForceMode.Impulse);
         //add random rotation
         float random_rot = Random.Range(-1f, 1f) * 10;
         rb.AddTorque(new Vector3(random_rot, random_rot, random_rot));
 
         gunScript.enabled = false;
+
+        throw_force = minDropForwardForce;
+    }
+
+
+    //throw weapon at enemies
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject hitObject = collision.gameObject;
+        Debug.Log("weapon collision " + hitObject);
+
+        float dmg = collision.relativeVelocity.magnitude * rb.mass;
+
+        if (hitObject.tag == "Enemy")
+        {
+            //damage enemy
+            hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1,1,1) ,collision.GetContact(0).point);
+
+            //bounce back and loose velocity
+            rb.velocity = kept_velocity_rate* new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
+        }
+    }
+
+
+    /*
+     * return true only if the raycast from this object's transform to the player hits something
+     */
+    private bool wallCheck(float distance)
+    {
+        // the ~ is to invert the layermask
+        //LayerMask mask = ~damageable;
+        //Debug.DrawLine(transform.position, weaponContainer.position, new Color(150, 150, 0), 10f);
+
+        //bool wall = Physics.Raycast(transform.position, transform.position - weaponContainer.position, distance, damageable);
+        
+
+        //Debug.Log("wall = "+ wall);
+        return false;
     }
 }

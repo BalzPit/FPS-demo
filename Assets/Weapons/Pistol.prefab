@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
-  rotation_speed: 6
+  rotation_speed: 20
   return_speed: 25
   fpsCam: {fileID: 0}
   camHolder: {fileID: 0}
@@ -115,9 +115,12 @@ MonoBehaviour:
   local_position: {x: 0, y: 0, z: 0}
   local_rotation: {x: 0, y: 0, z: 0}
   pickUpRange: 3
-  dropForwardForce: 1
+  minDropForwardForce: 10
   dropUpwardForce: 1
   equipped: 0
+  damageable:
+    serializedVersion: 2
+    m_Bits: 1028
 --- !u!1 &4903842022535030711
 GameObject:
   m_ObjectHideFlags: 0

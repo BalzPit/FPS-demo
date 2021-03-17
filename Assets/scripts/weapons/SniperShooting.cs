@@ -45,7 +45,7 @@ public class SniperShooting : Weapon
         damage = 100;
         recoil = 5f;
         range = 100;
-        spread = 0.02f;
+        spread = 0.01f;
 
         timeBetweenShooting = 1f;
         timeBetweenShots = 0;
@@ -93,6 +93,8 @@ public class SniperShooting : Weapon
         }
     }
 
+
+
     private void Shoot()
     {
         Debug.Log("shoot");
@@ -115,11 +117,9 @@ public class SniperShooting : Weapon
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 //enemy needs to be tagged as "Enemy" and have a script with the "TakeDamage" function
-                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage);
+                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage, direction, rayHit.point);
             }
         }
-
-
 
         Debug.DrawLine(fpsCam.transform.position, rayHit.point, new Color(256, 0, 0), 10f);
         Debug.DrawRay(rayHit.point, rayHit.normal, new Color(0, 256, 0), 10f);

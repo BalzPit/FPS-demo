@@ -2,12 +2,16 @@
 
 public class grenade : MonoBehaviour
 {
-    float explosion_delay = 2f;
     float explosion_timer;
+    public float explosion_delay;
+    public float explosion_radius;
+    public float explosion_force;
+    public float granade_dmg;
+
     bool exploding;
 
     public Rigidbody rb;
-    //public Transform effects;
+    public LayerMask damageable;
 
     public GameObject explosion_effect;
     public GameObject smoke_effect;
@@ -53,6 +57,27 @@ public class grenade : MonoBehaviour
     {
         Debug.Log("Explode");
 
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosion_radius, damageable);
+        Debug.Log("rigidbodies found:" +hitColliders.Length);
+
+        foreach(var hitcollider in hitColliders)
+        {
+            //always do a constant portion of the dmg (granade dmg/4) and add more depending on distance
+            float dmg = granade_dmg/4 + granade_dmg * (1 - (transform.position - hitcollider.transform.position).magnitude / explosion_radius);
+
+            if (hitcollider.tag == "Enemy")
+            {
+                Rigidbody hitRigidBody = hitcollider.GetComponent<Rigidbody>();
+                hitRigidBody.AddExplosionForce(100 * explosion_force, transform.position, explosion_radius);//, 0,ForceMode.Impulse);
+
+                hitcollider.GetComponent<EnemyStatus>().TakeDamage(dmg, hitRigidBody.position-transform.position ,hitRigidBody.position);
+            }
+            else if(hitcollider.tag == "Player")
+            {
+                hitcollider.GetComponentInParent<PlayerStatus>().TakeDamage(dmg);
+            }
+        }
+        
         Instantiate(explosion_effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

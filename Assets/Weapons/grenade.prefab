@@ -106,7 +106,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e7c9a13f8f25543bbabb298d50b9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion_delay: 2
+  explosion_radius: 8
+  explosion_force: 8
+  granade_dmg: 150
   rb: {fileID: 54069271420322224}
+  damageable:
+    serializedVersion: 2
+    m_Bits: 1024
   explosion_effect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
   smoke_effect: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8,

@@ -145,9 +145,12 @@ MonoBehaviour:
   local_position: {x: -2.76, y: 0.28, z: 0.66}
   local_rotation: {x: -1.557, y: 2.557, z: -1.97}
   pickUpRange: 3
-  dropForwardForce: 1
+  minDropForwardForce: 10
   dropUpwardForce: 1
   equipped: 0
+  damageable:
+    serializedVersion: 2
+    m_Bits: 1028
 --- !u!1001 &8126890605173929407
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -114,7 +114,7 @@ public class PistolShooting : Weapon
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 //enemy needs to be tagged as "Enemy" and have a script with the "TakeDamage" function
-                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage);
+                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage, direction, rayHit.point);
             }
         }
 
