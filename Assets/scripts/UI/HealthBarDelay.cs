@@ -44,7 +44,7 @@ public class HealthBarDelay : MonoBehaviour
                 }
                 else
                 {
-                    //perfectly sync
+                    //perfectly sync vaule and stop health loss
                     setHealth(healthSlider.value);
                     health_reduced = false;
                 }

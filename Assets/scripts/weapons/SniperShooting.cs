@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using MilkShake;
 
 public class SniperShooting : Weapon
 {
-    //Siper stats
+    //Sniper stats
     int damage;
     int magazineSize, bulletsPerTap;
     float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots, recoil;
@@ -27,8 +28,12 @@ public class SniperShooting : Weapon
     public Transform attackPoint, pistol;
     RaycastHit rayHit;
     public LayerMask damageable;
-    
 
+    public PickUpSystem pickupSys;
+
+    //UI
+    public Text ammoCountText;
+    
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic, cartridge;
 
@@ -52,6 +57,9 @@ public class SniperShooting : Weapon
         reloadTime = 3;
 
         cameraShaker = fpsCam.GetComponent<Shaker>();
+
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
     }
 
     // Update is called once per frame
@@ -138,6 +146,9 @@ public class SniperShooting : Weapon
         bulletsLeft--;
         bulletsShot--;
 
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
+
         Invoke("ResetShot", timeBetweenShooting);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
@@ -156,6 +167,9 @@ public class SniperShooting : Weapon
         //reload position
         transform.localRotation = Quaternion.Euler(new Vector3(-40,-10,0));
 
+        //UI
+        ammoCountText.text = "RELOADING";
+
         Invoke("ReloadFinished", reloadTime);
     }
 
@@ -167,8 +181,11 @@ public class SniperShooting : Weapon
         bulletsLeft = magazineSize;
         reloading = false;
 
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
+
         //returnn to normal position
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(pickupSys.local_rotation);
     }
 
 
@@ -179,8 +196,11 @@ public class SniperShooting : Weapon
 
         //reset everything and stop the invocation of reloadFinished
         reloading = false;
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(pickupSys.local_rotation);
         CancelInvoke("ReloadFinished");
+
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
     }
 
 
@@ -221,5 +241,15 @@ public class SniperShooting : Weapon
         */
 
         camRecoil.Fire(recoil_direction, rotation_speed, return_speed, recoil_strength);
+    }
+
+
+    public override void UIAmmoCounterPickUp()
+    {
+        ammoCountText.text = bulletsLeft.ToString();
+    }
+    public override void UIAmmoCounterDrop()
+    {
+        ammoCountText.text = "--";
     }
 }

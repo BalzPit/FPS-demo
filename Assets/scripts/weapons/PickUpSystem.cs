@@ -13,10 +13,10 @@ public class PickUpSystem : MonoBehaviour
     public Vector3 local_rotation;
 
     float throw_force;
-    float maxforce = 30f;
+    public float maxforce;
     float kept_velocity_rate = 0.2f;
-    public float pickUpRange;
     public float minDropForwardForce, dropUpwardForce;
+    public float pickUpRange;
 
     public bool equipped;
     public static bool slotFull;
@@ -111,6 +111,9 @@ public class PickUpSystem : MonoBehaviour
         coll.isTrigger = true;
 
         gunScript.enabled = true;
+
+        //UI
+        gunScript.UIAmmoCounterPickUp();
     }
 
 
@@ -143,6 +146,9 @@ public class PickUpSystem : MonoBehaviour
         //add random rotation
         float random_rot = Random.Range(-1f, 1f) * 10;
         rb.AddTorque(new Vector3(random_rot, random_rot, random_rot));
+
+        //UI
+        gunScript.UIAmmoCounterDrop();
 
         gunScript.enabled = false;
 

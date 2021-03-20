@@ -37,4 +37,15 @@ public abstract class Weapon : MonoBehaviour
      */
     public abstract void weaponRecoil(float recoil_strength, Vector3 ercoil_direction);
 
+    /*
+     * Change UI to display the equipped weapon's correct ammo count
+     */
+    public abstract void UIAmmoCounterPickUp();
+
+    /*
+     *  Change ammo UI to neutral when weapon is dropped
+     */
+    public abstract void UIAmmoCounterDrop();
+    
+
 }

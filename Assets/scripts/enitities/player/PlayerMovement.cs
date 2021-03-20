@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     //mid-air movement speed
     float airSpeed = 7;
     //jump height
-    float jumpH = 3f;
+    float jumpH = 3.3f;
     float doublejump_newdir_weight = 1.5f;
     //character controller height
     float standing_height = 3f;
@@ -32,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     float slide_dur = 0.7f;
     //recoil
     public static float rec_movement;
+
+    //sprint transition time
+    float sprint_transition_elapsed;
+    float sprint_transition_time = 1;
 
     //----------------------VECTORS
 
@@ -77,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         //prev_pos = transform.position;
         //current_pos = transform.position;
+        sprint_transition_elapsed = 0;
     }
 
     // Update is called once per frame
@@ -111,13 +116,23 @@ public class PlayerMovement : MonoBehaviour
         //======================== HORIZONTAL movement ==========================
 
         // SPRINTING (only if player is on the ground and moving forward)
+        //reset timers
+        if (Input.GetButtonDown("Sprint") || Input.GetButtonUp("Sprint"))
+        {
+            sprint_transition_elapsed = 0;
+        }
+
         if (Input.GetButton("Sprint") && onGround && z > 0 && !sprint_locked)
         {
             //smoothly increase speed 
             if (speed < sprintSpeed)
             {
-                speed = Mathf.Lerp(speed, sprintSpeed, 10 * delta);
                 sprinting = true;
+                if (sprint_transition_elapsed < sprint_transition_time)
+                {
+                    speed = Mathf.Lerp(speed, sprintSpeed, sprint_transition_elapsed/sprint_transition_time);
+                    sprint_transition_elapsed += delta;
+                }
             }
         }
         else if ((!Input.GetButton("Sprint") || Input.GetButton("Sprint") && z < 0 || sprint_locked) && onGround)
@@ -125,8 +140,12 @@ public class PlayerMovement : MonoBehaviour
             // smoothly decrease speed 
             if (speed > walkSpeed)
             {
-                speed = Mathf.Lerp(speed, walkSpeed, 10 * delta);
                 sprinting = false;
+                if (sprint_transition_elapsed < sprint_transition_time)
+                {
+                    speed = Mathf.Lerp(speed, walkSpeed, sprint_transition_elapsed / sprint_transition_time);
+                    sprint_transition_elapsed += delta;
+                }
             }
         }
 

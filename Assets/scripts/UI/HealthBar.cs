@@ -19,8 +19,14 @@ public class HealthBar : MonoBehaviour
             //player lost health
             delay_hb.damaged(previous_health);
         }
+        if (previous_health < health)
+        {
+            //player gained health, set secondary bar along wiith primary
+            delay_hb.setHealth(health);
+        }
 
         healthSlider.value = health;
+
         previous_health = health;
     }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using MilkShake;
 
 public class PistolShooting : Weapon
@@ -28,6 +29,11 @@ public class PistolShooting : Weapon
     RaycastHit rayHit;
     public LayerMask damageable;
 
+    public PickUpSystem pickupSys;
+
+    //UI
+    public Text ammoCountText;
+
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic, cartridge;
 
@@ -51,6 +57,9 @@ public class PistolShooting : Weapon
         reloadTime = 1.8f;
 
         cameraShaker = fpsCam.GetComponent<Shaker>();
+
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
     }
 
     // Update is called once per frame
@@ -136,6 +145,9 @@ public class PistolShooting : Weapon
         bulletsLeft--;
         bulletsShot--;
 
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
+
         Invoke("ResetShot", timeBetweenShooting);
 
         //shoot multiple bullets per tap (bullets shot was set to bulletspertap)
@@ -153,6 +165,9 @@ public class PistolShooting : Weapon
         //reload position
         transform.localRotation = Quaternion.Euler(new Vector3(-40, -10, 0));
 
+        //UI
+        ammoCountText.text = "RELOADING";
+
         Invoke("ReloadFinished", reloadTime);
     }
 
@@ -162,8 +177,11 @@ public class PistolShooting : Weapon
         bulletsLeft = magazineSize;
         reloading = false;
 
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
+
         //returnn to normal position
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(pickupSys.local_rotation);
     }
 
     public override void reloadCancel()
@@ -172,8 +190,11 @@ public class PistolShooting : Weapon
 
         //reset everything and stop the invocation to reloadFinished
         reloading = false;
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(pickupSys.local_rotation);
         CancelInvoke("ReloadFinished");
+
+        //UI
+        ammoCountText.text = bulletsLeft.ToString();
     }
 
     private void ResetShot()
@@ -188,6 +209,16 @@ public class PistolShooting : Weapon
         PlayerMovement.Recoil(recoil_strength, recoil_direction);
 
         camRecoil.Fire(recoil_direction, rotation_speed, return_speed, 0.1f*recoil_strength);
+    }
+
+
+    public override void UIAmmoCounterPickUp()
+    {
+        ammoCountText.text = bulletsLeft.ToString();
+    }
+    public override void UIAmmoCounterDrop()
+    {
+        ammoCountText.text = "--";
     }
 
 }

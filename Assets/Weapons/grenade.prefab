@@ -109,7 +109,7 @@ MonoBehaviour:
   explosion_delay: 2
   explosion_radius: 8
   explosion_force: 8
-  granade_dmg: 150
+  granade_dmg: 120
   rb: {fileID: 54069271420322224}
   damageable:
     serializedVersion: 2

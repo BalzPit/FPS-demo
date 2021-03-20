@@ -89,6 +89,8 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 1024
+  pickupSys: {fileID: 609179986586195041}
+  ammoCountText: {fileID: 0}
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   bulletHoleGraphic: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
@@ -114,13 +116,14 @@ MonoBehaviour:
   fpsCam: {fileID: 0}
   local_position: {x: 0, y: 0, z: 0}
   local_rotation: {x: 0, y: 0, z: 0}
-  pickUpRange: 3
+  maxforce: 30
   minDropForwardForce: 10
   dropUpwardForce: 1
+  pickUpRange: 3
   equipped: 0
   damageable:
     serializedVersion: 2
-    m_Bits: 1028
+    m_Bits: 1024
 --- !u!1 &4903842022535030711
 GameObject:
   m_ObjectHideFlags: 0
