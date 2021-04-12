@@ -33,6 +33,8 @@ public class WeaponShooting : Weapon
 
     //UI
     public Text ammoCountText;
+    public hitmarker hitmrkr;
+    public hitmarker deathMarker;
 
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic, cartridge;
@@ -128,10 +130,17 @@ public class WeaponShooting : Weapon
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 //enemy needs to be tagged as "Enemy" and have a script with the "TakeDamage" function
-                rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage, direction, rayHit.point);
+                float dmg = rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage, direction, rayHit.point);
 
-                //fai comparire l'hitmarker
-                
+                if (dmg > 0) {
+                    //show hitmarker
+                    hitmrkr.showHitMarker();
+                }
+                else if (dmg == -1) {
+                    //show both hitmarkers
+                    hitmrkr.showHitMarker();
+                    deathMarker.showHitMarker();
+                }
             }
         }
 

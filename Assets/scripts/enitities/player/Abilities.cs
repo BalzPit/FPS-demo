@@ -31,9 +31,15 @@ public class Abilities : MonoBehaviour
     {
         delta = Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("granade"))
         {
             throwGranade();
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            //grappling hook
+            
         }
 
         //ABILITIES COOLDOWNS

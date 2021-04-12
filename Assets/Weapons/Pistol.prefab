@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloading: 0
   rotation_speed: 20
-  return_speed: 25
+  return_speed: 15
   fpsCam: {fileID: 0}
   camHolder: {fileID: 0}
   player_transform: {fileID: 0}

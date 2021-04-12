@@ -109,16 +109,16 @@ MonoBehaviour:
   damage: 15
   magazineSize: 30
   bulletsPerTap: 1
-  timeBetweenShooting: 0.07
+  timeBetweenShooting: 0.09
   spread: 0.02
   range: 100
   reloadTime: 2.2
   timeBetweenShots: 0.1
   recoil: 0.1
   allowButtonHold: 1
-  recoil_direction: {x: 0.5, y: 0.3, z: 1}
+  recoil_direction: {x: 1.5, y: 3, z: 1.2}
   rotation_speed: 20
-  return_speed: 20
+  return_speed: 16
   fpsCam: {fileID: 0}
   camHolder: {fileID: 0}
   player_transform: {fileID: 0}

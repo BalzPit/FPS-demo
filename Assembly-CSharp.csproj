@@ -92,6 +92,8 @@
     <Compile Include="Assets\scripts\UI\GranadeCooldownUI.cs" />
     <Compile Include="Assets\scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\scripts\UI\HealthBarDelay.cs" />
+    <Compile Include="Assets\scripts\UI\hitmarker.cs" />
+    <Compile Include="Assets\scripts\UI\UIController.cs" />
     <Compile Include="Assets\scripts\weapons\grenade.cs" />
     <Compile Include="Assets\scripts\weapons\PickUpSystem.cs" />
     <Compile Include="Assets\scripts\weapons\PistolShooting.cs" />

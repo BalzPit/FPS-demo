@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class EnemyStatus : MonoBehaviour
     public GameObject deathEffect;
     public LayerMask damageable;
     public Collider self;
+
+    //UI
+    //GameObject playerUI;
+    public Image hitMarker;
+    public Image deatHitMarker;
 
     // Start is called before the first frame update
     void Start()
@@ -33,24 +39,35 @@ public class EnemyStatus : MonoBehaviour
      * hitPoint = the point where the attack was dealt
      * hitDir = the direction of the impact of the attack
      */
-    public void TakeDamage(float dmg, Vector3 hitDirection, Vector3 hitPosition)
+    public float TakeDamage(float dmg, Vector3 hitDirection, Vector3 hitPosition)
     {
-        Debug.Log("Enemy Damaged! " + dmg);
-        health -= dmg;
-
-        if(health <= 0)
+        //only deal damage if needed
+        if(health > 0)
         {
-            Debug.Log("Enemy Dead");
+            Debug.Log("Enemy Damaged! " + dmg);
+            health -= dmg;
 
-            //deactivate ai script
+            if (health <= 0)
+            {
+                Debug.Log("Enemy Dead");
 
-            rb.useGravity = true;
-            rb.freezeRotation = false;
+                //deactivate ai script
 
-            rb.AddForceAtPosition(2 * dmg * hitDirection, hitPosition);
+                rb.useGravity = true;
+                rb.freezeRotation = false;
 
-            Invoke("Death", 1.5f);
+                rb.AddForceAtPosition(2 * dmg * hitDirection, hitPosition);
+
+                Invoke("Death", 1.5f);
+
+                return -1; //flag value signalling death
+            }
+
+            //return taken dmg
+            return dmg;
         }
+
+        return 0;
     }
 
 
