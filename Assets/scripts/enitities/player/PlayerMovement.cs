@@ -190,6 +190,8 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(air_move * airSpeed * delta);
             //move character
             controller.Move(move * (speed-airSpeed) * delta);
+            
+            //controller.Move((air_movement + air_move).normalized * speed * delta);
         }
 
 

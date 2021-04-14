@@ -41,8 +41,8 @@ GameObject:
   - component: {fileID: 8126890606643664346}
   - component: {fileID: 8126890606643664343}
   - component: {fileID: 8126890606643664342}
-  - component: {fileID: 8126890606643664341}
   - component: {fileID: 8126890606643664340}
+  - component: {fileID: 889839113385623335}
   m_Layer: 2
   m_Name: Sniper
   m_TagString: Untagged
@@ -95,37 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.885194, y: 1.3511834, z: 0.35084754}
   m_Center: {x: 2.822952, y: 0.34059477, z: 0.04000318}
---- !u!114 &8126890606643664341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8126890606643664347}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e702f0e109c732b449eabe94841ee910, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloading: 0
-  rotation_speed: 6
-  return_speed: 25
-  fpsCam: {fileID: 0}
-  camHolder: {fileID: 0}
-  player_transform: {fileID: 0}
-  shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
-  attackPoint: {fileID: 8126890605971761427}
-  pistol: {fileID: 8126890605174320953}
-  damageable:
-    serializedVersion: 2
-    m_Bits: 1024
-  pickupSys: {fileID: 8126890606643664340}
-  ammoCountText: {fileID: 0}
-  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
-    type: 3}
-  bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
-    type: 3}
-  cartridge: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b, type: 3}
 --- !u!114 &8126890606643664340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56819d0e59d00c9418d7909c763459a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunScript: {fileID: 8126890606643664341}
+  gunScript: {fileID: 889839113385623335}
   rb: {fileID: 8126890606643664343}
   coll: {fileID: 8126890606643664342}
   player: {fileID: 0}
@@ -154,6 +123,50 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &889839113385623335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8126890606643664347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e788474b326d464793365b032d32c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloading: 0
+  damage: 100
+  magazineSize: 5
+  bulletsPerTap: 1
+  timeBetweenShooting: 1
+  spread: 0.01
+  range: 100
+  reloadTime: 3
+  timeBetweenShots: 0
+  recoil: 5
+  allowButtonHold: 0
+  recoil_direction: {x: 6, y: 4, z: 2}
+  rotation_speed: 6
+  return_speed: 25
+  fpsCam: {fileID: 0}
+  camHolder: {fileID: 0}
+  player_transform: {fileID: 0}
+  shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
+  pickupSys: {fileID: 8126890606643664340}
+  attackPoint: {fileID: 8126890605971761427}
+  pistol: {fileID: 8126890606643664346}
+  damageable:
+    serializedVersion: 2
+    m_Bits: 1024
+  ammoCountText: {fileID: 0}
+  hitmrkr: {fileID: 0}
+  deathMarker: {fileID: 0}
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
+    type: 3}
+  bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
+    type: 3}
+  cartridge: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b, type: 3}
 --- !u!1001 &8126890605173929407
 PrefabInstance:
   m_ObjectHideFlags: 0

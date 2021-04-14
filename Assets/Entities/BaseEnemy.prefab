@@ -131,3 +131,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   self: {fileID: 4934731611967291769}
+  hitMarker: {fileID: 0}
+  deatHitMarker: {fileID: 0}

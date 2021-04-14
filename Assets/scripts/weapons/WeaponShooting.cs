@@ -27,7 +27,7 @@ public class WeaponShooting : Weapon
     public PickUpSystem pickupSys;
 
 
-    public Transform attackPoint, pistol;
+    public Transform attackPoint, weapon;
     RaycastHit rayHit;
     public LayerMask damageable;
 
