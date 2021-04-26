@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera cam;
     public Weapon weapon;
     
-    //----------------------FLOATS
+    //----------------------FLOATS-----------------------------
     
     //gravity
     float gravity = 3* -9.81f;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     float slideSpeed = 22f;
     //mid-air movement speed
     float airSpeed = 7;
+    float air_movement_mag;
     //jump height
     float jumpH = 3.3f;
     float doublejump_newdir_weight = 1.5f;
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     float sprint_transition_elapsed;
     float sprint_transition_time = 1;
 
-    //----------------------VECTORS
+    //----------------------VECTORS-----------------------------
 
     //store player velocity
     Vector3 velocity;
@@ -50,13 +51,13 @@ public class PlayerMovement : MonoBehaviour
     Vector3 slide_movement;
     Vector3 new_direction;
     public static Vector3 recoil_direction;
-    /*calculate player velocity
-    Vector3 prev_pos;
-    Vector3 current_pos;
-    public static Vector3 playerVelocity;
-    */
+    //calculate player velocity
+    //Vector3 prev_pos;
+    //Vector3 current_pos;
+    //public static Vector3 playerVelocity;
+    
 
-    //----------------------BOOLS
+    //----------------------BOOLS------------------------------
 
     bool onGround;
     bool doubleJump;
@@ -190,8 +191,6 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(air_move * airSpeed * delta);
             //move character
             controller.Move(move * (speed-airSpeed) * delta);
-            
-            //controller.Move((air_movement + air_move).normalized * speed * delta);
         }
 
 
@@ -235,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
             doubleJump = false;
 
             //store last move value
-            float movement_magnitude = air_movement.magnitude;
+            air_movement_mag = air_movement.magnitude;
 
             //compute angle difference between old and new direction
             new_direction = transform.right * x + transform.forward * z;
@@ -243,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
             float angle_diff_rate = 1 - ( Vector3.Angle(new_direction, air_movement)/180 ); //the higher the angle difference, the smaller the rate
 
             //calculate direction of sum of vectors and reapply original magnitude so no speed gained when double jumping
-            air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * movement_magnitude * angle_diff_rate; 
+            air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * air_movement_mag * angle_diff_rate; 
         }
         
         //reomve RECOIL force
@@ -347,5 +346,17 @@ public class PlayerMovement : MonoBehaviour
         // add velocity in the opposite direction when shooting
         recoil_direction = dir;
         rec_movement = rec;
+    }
+
+
+
+    /**
+     * Activate hook movements and set hook position when the player has launched the hook
+     * 
+     */
+     public static void grapplingHook(Vector3 hookpos)
+    {
+
+
     }
 }

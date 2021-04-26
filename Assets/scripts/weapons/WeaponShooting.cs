@@ -42,22 +42,6 @@ public class WeaponShooting : Weapon
     // Start is called before the first frame update
     void Start()
     {
-        /*magazineSize = 5;
-        bulletsPerTap = 1;
-        bulletsLeft = magazineSize;
-        
-        reloading = false;
-        allowButtonHold = false;
-
-        damage = 100;
-        recoil = 5f;
-        range = 100;
-        spread = 0.01f;
-
-        timeBetweenShooting = 1f;
-        timeBetweenShots = 0;
-        reloadTime = 3;
-        */
         readyToShoot = true;
         bulletsLeft = magazineSize;
 
@@ -67,13 +51,15 @@ public class WeaponShooting : Weapon
         ammoCountText.text = bulletsLeft.ToString();
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        MyInput();
+        shootWeapon();
     }
+    
 
-    private void MyInput()
+    private void shootWeapon()
     {
         if (allowButtonHold)
         {

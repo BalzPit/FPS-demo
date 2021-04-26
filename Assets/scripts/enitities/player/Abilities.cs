@@ -4,17 +4,23 @@ public class Abilities : MonoBehaviour
 {
     float delta;
 
+    RaycastHit rayHit;
+
+    public Transform fpsCam;
+    public GameObject grenade;
+
+    //--------------------------GRANADE-----------------
     float max_granade_usages = 2;
     public float granade_throw_force;
     public float granade_cooldown_time;
     float granade_usages;
     float granade_energy;
-
     public Transform grenadeSpawnPoint;
-    public Transform fpsCam;
-    public GameObject grenade;
-
     public GranadeCooldownUI granadeUI;
+
+    //-------------------------GRAPPLING HOOK------------
+    float hookRange = 30;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +45,8 @@ public class Abilities : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             //grappling hook
-            
+            Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange);
+            PlayerMovement.grapplingHook(rayHit.transform.position);
         }
 
         //ABILITIES COOLDOWNS

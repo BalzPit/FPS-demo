@@ -176,18 +176,25 @@ public class PickUpSystem : MonoBehaviour
 
 
     /*
-     * return true only if the raycast from this object's transform to the player hits something
+     * return true if there is something between th eplayer and the game object
+     * 
+     * distance: the distance from the palyer to the object that's interacting
      */
     private bool wallCheck(float distance)
     {
-        // the ~ is to invert the layermask
-        //LayerMask mask = ~damageable;
-        //Debug.DrawLine(transform.position, weaponContainer.position, new Color(150, 150, 0), 10f);
+        bool wall = true;
 
         //bool wall = Physics.Raycast(transform.position, transform.position - weaponContainer.position, distance, damageable);
-        
+        bool hit = Physics.Raycast(transform.position, player.position - transform.position , out rayHit ,distance);
+
+        //no objject is in the way, object can be picked up
+        if (rayHit.collider.CompareTag("Player"))
+        {
+            wall = false;
+        }
+
 
         //Debug.Log("wall = "+ wall);
-        return false;
+        return wall;
     }
 }
