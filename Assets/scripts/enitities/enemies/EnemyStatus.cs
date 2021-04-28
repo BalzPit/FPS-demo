@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyStatus : MonoBehaviour
 {
     float health;
+    float maxHealth = 100;
     public float explosion_dmg;
     public float explosion_radius;
     public float explosion_force;
@@ -17,24 +17,29 @@ public class EnemyStatus : MonoBehaviour
 
     //UI
     //GameObject playerUI;
-    public Image hitMarker;
-    public Image deatHitMarker;
+    //public Image hitMarker;
+    //public Image deatHitMarker;
+
+    //ENEMY HEALTH
+    public HealthBar healthBar;
+    public HealthBarDelay healthDelay;
+    public Canvas healthCanvas;
+    float removeHealthDelay;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
-    }
+        health = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //set delay time to remove healthbar after death
+        removeHealthDelay = healthDelay.slide_time;
     }
 
 
     /*
      * damage enemy
+     * 
      * dmg = damage taken by the object
      * hitPoint = the point where the attack was dealt
      * hitDir = the direction of the impact of the attack
@@ -46,6 +51,9 @@ public class EnemyStatus : MonoBehaviour
         {
             Debug.Log("Enemy Damaged! " + dmg);
             health -= dmg;
+
+            //reduce health
+            healthBar.setHealth(health);
 
             if (health <= 0)
             {
@@ -59,6 +67,8 @@ public class EnemyStatus : MonoBehaviour
                 rb.AddForceAtPosition(2 * dmg * hitDirection, hitPosition);
 
                 Invoke("Death", 1.5f);
+
+                Invoke("removeHealthbar", removeHealthDelay);
 
                 return -1; //flag value signalling death
             }
@@ -108,5 +118,24 @@ public class EnemyStatus : MonoBehaviour
                 hitcollider.GetComponentInParent<PlayerStatus>().TakeDamage(dmg);
             }
         }
+    }
+
+
+    /*
+     * remove the healthbar canvas
+     */
+    public void removeHealthbar()
+    {
+        //remove healthbar
+        healthCanvas.enabled = false;
+    }
+
+    /*
+     * show the healthbar canvas
+     */
+    public void showHealthbar()
+    {
+        //show healthbar
+        healthCanvas.enabled = true;
     }
 }

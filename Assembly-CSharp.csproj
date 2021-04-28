@@ -89,6 +89,7 @@
     <Compile Include="Assets\scripts\enitities\player\PlayerMovement.cs" />
     <Compile Include="Assets\scripts\enitities\player\PlayerStatus.cs" />
     <Compile Include="Assets\scripts\enitities\player\WeaponContainer.cs" />
+    <Compile Include="Assets\scripts\UI\Billboard.cs" />
     <Compile Include="Assets\scripts\UI\GranadeCooldownUI.cs" />
     <Compile Include="Assets\scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\scripts\UI\HealthBarDelay.cs" />
