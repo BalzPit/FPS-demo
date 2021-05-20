@@ -86,6 +86,7 @@ MonoBehaviour:
   local_position: {x: -3.18, y: 0.32, z: 1.11}
   local_rotation: {x: -0.453, y: 3.182, z: -2.627}
   maxforce: 30
+  throwChargingSpeed: 40
   minDropForwardForce: 10
   dropUpwardForce: 1
   pickUpRange: 3
@@ -93,6 +94,10 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 1024
+  throwForceBar: {fileID: 0}
+  crosshair: {fileID: 0}
+  weaponCrosshair: {fileID: 21300000, guid: 5e42ab1b7d9b15145bcf255510e30a00, type: 3}
+  defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
 --- !u!114 &114681638325255346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +130,13 @@ MonoBehaviour:
   shake_preset: {fileID: 11400000, guid: 1f8d194d03868b646a88dbc47f5f929a, type: 2}
   pickupSys: {fileID: 5372304230811185347}
   attackPoint: {fileID: 7787019262425973516}
-  pistol: {fileID: 9056843184928021185}
+  weapon: {fileID: 0}
   damageable:
     serializedVersion: 2
     m_Bits: 0
   ammoCountText: {fileID: 0}
+  hitmrkr: {fileID: 0}
+  deathMarker: {fileID: 0}
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   bulletHoleGraphic: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,

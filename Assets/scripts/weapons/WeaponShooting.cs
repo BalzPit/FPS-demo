@@ -4,7 +4,7 @@ using MilkShake;
 
 public class WeaponShooting : Weapon
 {
-    //Sniper stats
+    //Weapon stats
     public int damage;
     public int magazineSize, bulletsPerTap;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots, recoil;
@@ -27,7 +27,7 @@ public class WeaponShooting : Weapon
     public PickUpSystem pickupSys;
 
 
-    public Transform attackPoint, weapon;
+    public Transform attackPoint;
     RaycastHit rayHit;
     public LayerMask damageable;
 
@@ -48,7 +48,7 @@ public class WeaponShooting : Weapon
         cameraShaker = fpsCam.GetComponent<Shaker>();
 
         //UI
-        ammoCountText.text = bulletsLeft.ToString();
+        ammoCountText.text = (bulletsLeft/bulletsPerTap).ToString();
     }
 
 
@@ -138,23 +138,27 @@ public class WeaponShooting : Weapon
         GameObject bulletHole = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(rayHit.normal));
         bulletHole.transform.localScale = new Vector3(4, 4, 4);
 
-        //camera Shake
-        cameraShaker.Shake(shake_preset);
-
-        //recoil
-        weaponRecoil(recoil, direction.normalized);
-
         bulletsLeft--;
         bulletsShot--;
 
         //UI
-        ammoCountText.text = bulletsLeft.ToString();
+        ammoCountText.text = (bulletsLeft/bulletsPerTap).ToString();
 
         Invoke("ResetShot", timeBetweenShooting);
 
         if (bulletsShot > 0 && bulletsLeft > 0)
         {
             Invoke("Shoot", timeBetweenShots);
+        }
+
+        //recoil only after all bullets in the shot have been fired, or it's a burst weapon 
+        if(bulletsShot == 0 || timeBetweenShots != 0)
+        {
+            //camera Shake
+            cameraShaker.Shake(shake_preset);
+
+            //recoil
+            weaponRecoil(recoil, direction.normalized);
         }
     }
 
@@ -183,7 +187,7 @@ public class WeaponShooting : Weapon
         reloading = false;
 
         //UI
-        ammoCountText.text = bulletsLeft.ToString();
+        ammoCountText.text = (bulletsLeft/bulletsPerTap).ToString();
 
         //returnn to normal position
         transform.localRotation = Quaternion.Euler(pickupSys.local_rotation);
@@ -201,7 +205,7 @@ public class WeaponShooting : Weapon
         CancelInvoke("ReloadFinished");
 
         //UI
-        ammoCountText.text = bulletsLeft.ToString();
+        ammoCountText.text = (bulletsLeft / bulletsPerTap).ToString();
     }
 
 
@@ -247,7 +251,7 @@ public class WeaponShooting : Weapon
 
     public override void UIAmmoCounterPickUp()
     {
-        ammoCountText.text = bulletsLeft.ToString();
+        ammoCountText.text = (bulletsLeft / bulletsPerTap).ToString();
     }
     public override void UIAmmoCounterDrop()
     {

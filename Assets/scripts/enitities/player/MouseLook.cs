@@ -41,10 +41,6 @@ public class MouseLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * delta;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * delta;
 
-
-        //float mouseX = Input.GetAxis("Controller X") * mouseSensitivity * Time.deltaTime;
-        //float mouseY = Input.GetAxis("Controller Y") * mouseSensitivity * Time.deltaTime;
-
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);  //clamp rotation value so you can't look behind
 

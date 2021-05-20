@@ -94,6 +94,7 @@
     <Compile Include="Assets\scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\scripts\UI\HealthBarDelay.cs" />
     <Compile Include="Assets\scripts\UI\hitmarker.cs" />
+    <Compile Include="Assets\scripts\UI\ThrowForceBar.cs" />
     <Compile Include="Assets\scripts\UI\UIController.cs" />
     <Compile Include="Assets\scripts\weapons\grenade.cs" />
     <Compile Include="Assets\scripts\weapons\PickUpSystem.cs" />

@@ -46,10 +46,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 move;
     //midair-enabled movement
     Vector3 air_move;
-    //store player movement direction when leaving the grund
+    //store player movement direction when leaving the ground
     Vector3 air_movement;
     Vector3 slide_movement;
     Vector3 new_direction;
+    //movement vector to make player slide when landing on the ground
+    Vector3 residualMovement;
     public static Vector3 recoil_direction;
     //calculate player velocity
     //Vector3 prev_pos;
@@ -183,14 +185,16 @@ public class PlayerMovement : MonoBehaviour
             // give less control IN THE AIR
 
             //keep moving in the same direction as when player left the ground
-            move = air_movement;
+            //move = air_movement;
 
+            //change direction
             air_move = transform.right * x + transform.forward * z;
 
             //mid-air horizontal control
             controller.Move(air_move * airSpeed * delta);
-            //move character
-            controller.Move(move * (speed-airSpeed) * delta);
+
+            controller.Move(air_movement * (speed-airSpeed) * delta);
+            
         }
 
 

@@ -72,18 +72,21 @@ public class HealthBarDelay : MonoBehaviour
 
     public void damaged(float health)
     {
-        previous_health = health;
+        if (!health_reduced)
+        {
+            previous_health = health;
+            health_reduced = true;
+
+            //reset timers
+            time_passed = 0;
+            elapsed = 0;
+        }
     
-        //put slider where healthar was if i was in the middle of a delay 
-        if (time_passed > 0 && time_passed< delay)
+        /*put slider where healthbar was if i was in the middle of a delay 
+        if (time_passed > 0 && time_passed < delay)
         {
             delaySlider.value = previous_health;
         }
-
-        health_reduced = true;
-
-        //reset timers
-        time_passed = 0;
-        elapsed = 0;
+        */
     }
 }

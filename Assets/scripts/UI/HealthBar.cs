@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         }
         if (previous_health < health)
         {
-            //player gained health, set secondary bar along wiith primary
+            //player gained health, set secondary bar along with primary
             delay_hb.setHealth(health);
         }
 

@@ -88,11 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3a55d6ed0fd1f48accc10ee53f4c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fpsCam: {fileID: 4220752793621816189}
+  grenade: {fileID: 6536004714789007875, guid: d23f5968c8ee29a4bba44196ed0a1d3d, type: 3}
   granade_throw_force: 40
   granade_cooldown_time: 5
   grenadeSpawnPoint: {fileID: 4220752794127094457}
-  fpsCam: {fileID: 4220752793621816189}
-  grenade: {fileID: 6536004714789007875, guid: d23f5968c8ee29a4bba44196ed0a1d3d, type: 3}
   granadeUI: {fileID: 0}
 --- !u!114 &4220752793107433357
 MonoBehaviour:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c540a6e8bdf674ca66d1fb4b1151cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 200
   playerBody: {fileID: 4220752793107433358}
 --- !u!1 &4220752794127094456
 GameObject:

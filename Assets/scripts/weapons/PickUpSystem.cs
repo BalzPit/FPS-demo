@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUpSystem : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PickUpSystem : MonoBehaviour
 
     float throw_force;
     public float maxforce;
+    public float throwChargingSpeed;
     float kept_velocity_rate = 0.2f;
     public float minDropForwardForce, dropUpwardForce;
     public float pickUpRange;
@@ -30,6 +32,12 @@ public class PickUpSystem : MonoBehaviour
 
     Collider weaponCollider;
     public LayerMask damageable;
+
+    public ThrowForceBar throwForceBar;
+    public Image crosshair;
+    public Sprite weaponCrosshair;
+    public Sprite defaultCrosshair;
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +61,11 @@ public class PickUpSystem : MonoBehaviour
             coll.isTrigger = true;
             slotFull = true;
         }
+
+        //UI
+        throwForceBar.setMinForce(minDropForwardForce);
+        throwForceBar.setMaxForce(maxforce);
+        throwForceBar.setForce(0);
     }
 
     // Update is called once per frame
@@ -81,14 +94,20 @@ public class PickUpSystem : MonoBehaviour
             {
                 if (throw_force < maxforce)
                 {
+                    //BLEAH
+                    throwForceBar.showBar();
+
                     //increase throw force
-                    throw_force += 50*Time.deltaTime;
+                    throw_force += throwChargingSpeed*Time.deltaTime;
+                    throwForceBar.setForce(throw_force);
                 }
             }
             //drop/throw weapon
             if (Input.GetKeyUp(KeyCode.Q))
             {
                 Drop();
+                //throwbar force will be reset to 0 once the bar disappears (look at Update method in throwForceBar class)
+                throwForceBar.hideBar();
             }
         }
     }
@@ -113,7 +132,12 @@ public class PickUpSystem : MonoBehaviour
         gunScript.enabled = true;
 
         //UI
+
+        //display ammo count
         gunScript.UIAmmoCounterPickUp();
+
+        //display weapon crosshair
+        crosshair.sprite = weaponCrosshair;
     }
 
 
@@ -149,6 +173,7 @@ public class PickUpSystem : MonoBehaviour
 
         //UI
         gunScript.UIAmmoCounterDrop();
+        crosshair.sprite = defaultCrosshair;
 
         gunScript.enabled = false;
 
@@ -187,8 +212,13 @@ public class PickUpSystem : MonoBehaviour
         //bool wall = Physics.Raycast(transform.position, transform.position - weaponContainer.position, distance, damageable);
         bool hit = Physics.Raycast(transform.position, player.position - transform.position , out rayHit ,distance);
 
-        //no objject is in the way, object can be picked up
-        if (rayHit.collider.CompareTag("Player"))
+        if(!hit)
+        {
+            //solves a weird bug that prevents player from picking up weapon if the player model and the gun model clip in a way that prevents the raycast to hit anything. when this happens, clearly the gun and the player have no wall in between (hopefully)
+            wall = false;
+        }
+        //no object is in the way, object can be picked up
+        else if (rayHit.collider.CompareTag("Player"))
         {
             wall = false;
         }
