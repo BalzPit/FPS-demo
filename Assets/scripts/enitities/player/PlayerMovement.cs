@@ -21,8 +21,10 @@ public class PlayerMovement : MonoBehaviour
     //sliding speed
     float slideSpeed = 22f;
     //mid-air movement speed
-    float airSpeed = 7;
+    float airSpeed = 5;
     float air_movement_mag;
+    float residualSpeed;
+
     //jump height
     float jumpH = 3.3f;
     float doublejump_newdir_weight = 1.5f;
@@ -53,10 +55,11 @@ public class PlayerMovement : MonoBehaviour
     //movement vector to make player slide when landing on the ground
     Vector3 residualMovement;
     public static Vector3 recoil_direction;
+    
     //calculate player velocity
-    //Vector3 prev_pos;
-    //Vector3 current_pos;
-    //public static Vector3 playerVelocity;
+    Vector3 prev_pos;
+    Vector3 current_pos;
+    public static Vector3 playerVelocity;
     
 
     //----------------------BOOLS------------------------------
@@ -110,11 +113,16 @@ public class PlayerMovement : MonoBehaviour
             slide_movement = air_movement;
         }
 
-        /*update positions and compute player velocity
+        //update positions and compute player velocity
         prev_pos = current_pos;
         current_pos = transform.position;
-        playerVelocity = (current_pos - prev_pos) / delta;
-        */
+        playerVelocity = (current_pos - prev_pos)/delta;
+
+        if (!onGround)
+        {
+            residualMovement = new Vector3(playerVelocity.x, 0, playerVelocity.z).normalized;
+            residualSpeed = residualMovement.magnitude;
+        }
 
         //======================== HORIZONTAL movement ==========================
 
@@ -165,11 +173,27 @@ public class PlayerMovement : MonoBehaviour
             {
                 //move along x and z axis
                 move = transform.right * x + transform.forward * z;
-                //move character
-                controller.Move(move * speed * delta);
 
-                //store last move value
-                air_movement = move;
+                if (residualSpeed > 0 && Vector3.Angle(move, residualMovement)<30) {
+                    //move character
+                    controller.Move(move * (speed - residualSpeed) * delta);
+
+                    //move in the residual direction
+                    controller.Move(residualMovement * residualSpeed * delta);
+
+                    //store last move value
+                    air_movement = (move + residualMovement).normalized;
+                }
+                else
+                {
+                    //move character
+                    controller.Move(move * speed * delta);
+
+                    //store last move value
+                    air_movement = move;
+                }
+                //reduce the residual speed
+                residualSpeed -= delta * 5;
             }
             else
             {
@@ -184,8 +208,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // give less control IN THE AIR
 
-            //keep moving in the same direction as when player left the ground
+
             //move = air_movement;
+
+            //update air movement vector (only has x and z components)
+            //air_movement = (air_movement + new Vector3(playerVelocity.x, 0, playerVelocity.z)).normalized
 
             //change direction
             air_move = transform.right * x + transform.forward * z;
@@ -193,8 +220,8 @@ public class PlayerMovement : MonoBehaviour
             //mid-air horizontal control
             controller.Move(air_move * airSpeed * delta);
 
+            //keep moving in the same direction of the momentum
             controller.Move(air_movement * (speed-airSpeed) * delta);
-            
         }
 
 

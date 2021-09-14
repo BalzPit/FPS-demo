@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4220752793107433356}
   - component: {fileID: 4220752793107433357}
   - component: {fileID: 4220752793107433354}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Runner
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 4220752793185407678}
   - component: {fileID: 4220752793185407649}
   - component: {fileID: 4220752793185407676}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: First Person Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4220752793621816189}
   - component: {fileID: 4220752793621816186}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: cameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4220752794127094457}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: grenadeSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4220752794187764655}
   - component: {fileID: 4220752794187764652}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: CamRecoil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4220752794299619023}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4220752794624246498}
   - component: {fileID: 4220752794624246499}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: WeaponContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 4220752794949591493}
   - component: {fileID: 4220752794949591492}
   - component: {fileID: 4220752794949591490}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}

@@ -12,7 +12,19 @@ public class PlayerStatus : MonoBehaviour
     public float recovery_time;
     float recovery_elapsed;
 
-    public HealthBar healthBar;
+    HealthBar healthBar;
+
+    //UI
+    UIManager uiManager;
+
+
+    private void Awake()
+    {
+        //UI
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //get ui coponents
+        healthBar = uiManager.getHealthBar();
+    }
 
     // Start is called before the first frame update
     void Start()

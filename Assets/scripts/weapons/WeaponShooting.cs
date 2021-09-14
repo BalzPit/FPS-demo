@@ -32,12 +32,25 @@ public class WeaponShooting : Weapon
     public LayerMask damageable;
 
     //UI
-    public Text ammoCountText;
-    public hitmarker hitmrkr;
-    public hitmarker deathMarker;
+    UIManager uiManager;
+    Text ammoCountText;
+    hitmarker hitmrkr;
+    hitmarker deathMarker;
 
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic, cartridge;
+
+
+    //called before start even if script is inactive
+    private void Awake()
+    {
+        //UI
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //get UI elements
+        ammoCountText = uiManager.getAmmoCounter();
+        hitmrkr = uiManager.getHitMarker();
+        deathMarker = uiManager.getDeathHitMarker();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +60,6 @@ public class WeaponShooting : Weapon
 
         cameraShaker = fpsCam.GetComponent<Shaker>();
 
-        //UI
         ammoCountText.text = (bulletsLeft/bulletsPerTap).ToString();
     }
 

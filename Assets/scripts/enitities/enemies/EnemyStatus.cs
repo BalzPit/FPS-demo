@@ -16,15 +16,15 @@ public class EnemyStatus : MonoBehaviour
     public Collider self;
 
     //UI
-    //GameObject playerUI;
-    //public Image hitMarker;
-    //public Image deatHitMarker;
 
     //ENEMY HEALTH
     public HealthBar healthBar;
     public HealthBarDelay healthDelay;
     public Canvas healthCanvas;
     float removeHealthDelay;
+
+    //AI
+    public EnemyAI ai;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +43,8 @@ public class EnemyStatus : MonoBehaviour
      * dmg = damage taken by the object
      * hitPoint = the point where the attack was dealt
      * hitDir = the direction of the impact of the attack
+     * 
+     * Returns: amount of damage taken or -1 when the damage reduces health to or below 0
      */
     public float TakeDamage(float dmg, Vector3 hitDirection, Vector3 hitPosition)
     {
@@ -66,6 +68,8 @@ public class EnemyStatus : MonoBehaviour
 
                 rb.AddForceAtPosition(2 * dmg * hitDirection, hitPosition);
 
+                ai.enabled = false;
+
                 Invoke("Death", 1.5f);
 
                 Invoke("removeHealthbar", removeHealthDelay);
@@ -82,7 +86,7 @@ public class EnemyStatus : MonoBehaviour
 
 
 
-    void Death()
+    public void Death()
     {
         Explode();
         Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -122,7 +126,7 @@ public class EnemyStatus : MonoBehaviour
 
 
     /*
-     * remove the healthbar canvas
+     * fade the healthbar out
      */
     public void removeHealthbar()
     {
@@ -131,7 +135,7 @@ public class EnemyStatus : MonoBehaviour
     }
 
     /*
-     * show the healthbar canvas
+     * show the healthbar
      */
     public void showHealthbar()
     {

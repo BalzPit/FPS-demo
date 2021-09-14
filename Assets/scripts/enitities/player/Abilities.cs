@@ -16,11 +16,21 @@ public class Abilities : MonoBehaviour
     float granade_usages;
     float granade_energy;
     public Transform grenadeSpawnPoint;
-    public GranadeCooldownUI granadeUI;
+    GranadeCooldownUI granadeUI;
 
     //-------------------------GRAPPLING HOOK------------
     float hookRange = 30;
 
+    //UI
+    UIManager uiManager;
+
+    private void Awake()
+    {
+        //UI
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //get ui elements
+        granadeUI = uiManager.GetGranadeCooldownUI();
+    }
 
     // Start is called before the first frame update
     void Start()

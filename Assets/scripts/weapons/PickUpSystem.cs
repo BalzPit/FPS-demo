@@ -33,11 +33,28 @@ public class PickUpSystem : MonoBehaviour
     Collider weaponCollider;
     public LayerMask damageable;
 
-    public ThrowForceBar throwForceBar;
-    public Image crosshair;
+    //UI 
+    UIManager uiManager;
+
+    ThrowForceBar throwForceBar;
+    Image crosshair;
     public Sprite weaponCrosshair;
     public Sprite defaultCrosshair;
 
+    hitmarker hitmrkr;
+    hitmarker deathMarker;
+
+    //called before start even if script is inactive
+    private void Awake()
+    {
+        //UI
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //get ui elements
+        throwForceBar = uiManager.GetThrowForceBar();
+        crosshair = uiManager.getCrosshair();
+        hitmrkr = uiManager.getHitMarker();
+        deathMarker = uiManager.getDeathHitMarker();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +79,6 @@ public class PickUpSystem : MonoBehaviour
             slotFull = true;
         }
 
-        //UI
         throwForceBar.setMinForce(minDropForwardForce);
         throwForceBar.setMaxForce(maxforce);
         throwForceBar.setForce(0);
@@ -192,10 +208,23 @@ public class PickUpSystem : MonoBehaviour
         if (hitObject.tag == "Enemy")
         {
             //damage enemy
-            hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1,1,1) ,collision.GetContact(0).point);
+            dmg = hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1,1,1) ,collision.GetContact(0).point);
 
             //bounce back and loose velocity
             rb.velocity = kept_velocity_rate* new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
+
+            //show hitmarker
+            if (dmg > 0)
+            {
+                //show hitmarker
+                hitmrkr.showHitMarker();
+            }
+            else if (dmg == -1)
+            {
+                //show both hitmarkers
+                hitmrkr.showHitMarker();
+                deathMarker.showHitMarker();
+            }
         }
     }
 
