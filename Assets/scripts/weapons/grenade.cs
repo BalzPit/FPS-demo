@@ -10,6 +10,7 @@ public class grenade : MonoBehaviour
 
     bool exploding;
 
+    Abilities ab;
     public Rigidbody rb;
     public LayerMask damageable;
 
@@ -70,7 +71,9 @@ public class grenade : MonoBehaviour
                 Rigidbody hitRigidBody = hitcollider.GetComponent<Rigidbody>();
                 hitRigidBody.AddExplosionForce(100 * explosion_force, transform.position, explosion_radius);//, 0,ForceMode.Impulse);
 
-                hitcollider.GetComponent<EnemyStatus>().TakeDamage(dmg, hitRigidBody.position-transform.position ,hitRigidBody.position);
+                float damage_result = hitcollider.GetComponent<EnemyStatus>().TakeDamage(dmg, hitRigidBody.position-transform.position ,hitRigidBody.position);
+
+                ab.showHitMarker(damage_result);
             }
             else if(hitcollider.tag == "Player")
             {
@@ -80,5 +83,11 @@ public class grenade : MonoBehaviour
         
         Instantiate(explosion_effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    //link abilities script to this gameobject so we can use its functions
+    public void linkAbilities(Abilities abilities)
+    {
+        ab = abilities;
     }
 }

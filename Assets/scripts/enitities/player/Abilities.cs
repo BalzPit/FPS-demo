@@ -23,6 +23,8 @@ public class Abilities : MonoBehaviour
 
     //UI
     UIManager uiManager;
+    hitmarker hitmrkr;
+    hitmarker deathMarker;
 
     private void Awake()
     {
@@ -30,6 +32,8 @@ public class Abilities : MonoBehaviour
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         //get ui elements
         granadeUI = uiManager.GetGranadeCooldownUI();
+        hitmrkr = uiManager.getHitMarker();
+        deathMarker = uiManager.getDeathHitMarker();
     }
 
     // Start is called before the first frame update
@@ -93,6 +97,7 @@ public class Abilities : MonoBehaviour
         if(granade_usages > 0)
         {
             GameObject grnd = Instantiate(grenade, grenadeSpawnPoint.position, Quaternion.identity);
+            grnd.GetComponent<grenade>().linkAbilities(this);
             Rigidbody rb = grnd.GetComponent<Rigidbody>();
 
             //add grenade throw force
@@ -112,6 +117,22 @@ public class Abilities : MonoBehaviour
                 granadeUI.useSecondStack();
             }
             granadeUI.resetSlider(granade_usages);
+        }
+    }
+
+
+    public void showHitMarker(float dmg)
+    {
+        if (dmg > 0)
+        {
+            //show hitmarker
+            hitmrkr.showHitMarker();
+        }
+        else if (dmg == -1)
+        {
+            //show both hitmarkers
+            hitmrkr.showHitMarker();
+            deathMarker.showHitMarker();
         }
     }
 }

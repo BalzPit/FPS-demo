@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e7c9a13f8f25543bbabb298d50b9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion_delay: 2
+  explosion_delay: 1
   explosion_radius: 8
   explosion_force: 8
   granade_dmg: 120

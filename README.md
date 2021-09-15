@@ -34,11 +34,10 @@ BACKLOG:
 
 
 ----- UI -----
-- granade hitmarker
 - show/hide enemy healthbar dynamically
-- granade UI
 - damage direction on hit
-
+- granade UI
+- ✓ granade hitmarker
 
 ----- art -----
 - viewmodel animations
@@ -58,6 +57,7 @@ BACKLOG:
 - in-air movement
 - weapon recoil effects
 - bullet holes not rotating correctly
+- weapons damaging enemies when on sloped floors
 
 
 ----- gameplay tweaks ------

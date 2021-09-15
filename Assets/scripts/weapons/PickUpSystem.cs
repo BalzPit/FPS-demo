@@ -110,7 +110,7 @@ public class PickUpSystem : MonoBehaviour
             {
                 if (throw_force < maxforce)
                 {
-                    //BLEAH
+                    //throw force UI
                     throwForceBar.showBar();
 
                     //increase throw force
@@ -124,6 +124,18 @@ public class PickUpSystem : MonoBehaviour
                 Drop();
                 //throwbar force will be reset to 0 once the bar disappears (look at Update method in throwForceBar class)
                 throwForceBar.hideBar();
+            }
+        }
+        else
+        {
+            if (!rb.IsSleeping())
+            {
+                //update positions
+                prev_pos = current_pos;
+                current_pos = transform.position;
+
+                //calculate current velocity
+                velocity = (current_pos - prev_pos) / Time.deltaTime;
             }
         }
     }
@@ -200,30 +212,35 @@ public class PickUpSystem : MonoBehaviour
     //throw weapon at enemies
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject hitObject = collision.gameObject;
-        Debug.Log("weapon collision " + hitObject);
-
-        float dmg = collision.relativeVelocity.magnitude * rb.mass;
-
-        if (hitObject.tag == "Enemy")
+        //only deal damage when the weapon hit something because it was moving
+        if (velocity != Vector3.zero)
         {
-            //damage enemy
-            dmg = hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1,1,1) ,collision.GetContact(0).point);
 
-            //bounce back and loose velocity
-            rb.velocity = kept_velocity_rate* new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
+            GameObject hitObject = collision.gameObject;
+            Debug.Log("weapon collision " + hitObject);
 
-            //show hitmarker
-            if (dmg > 0)
+            float dmg = collision.relativeVelocity.magnitude * rb.mass;
+
+            if (hitObject.tag == "Enemy")
             {
+                //damage enemy
+                dmg = hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1, 1, 1), collision.GetContact(0).point);
+
+                //bounce back and loose velocity
+                rb.velocity = kept_velocity_rate * new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
+
                 //show hitmarker
-                hitmrkr.showHitMarker();
-            }
-            else if (dmg == -1)
-            {
-                //show both hitmarkers
-                hitmrkr.showHitMarker();
-                deathMarker.showHitMarker();
+                if (dmg > 0)
+                {
+                    //show hitmarker
+                    hitmrkr.showHitMarker();
+                }
+                else if (dmg == -1)
+                {
+                    //show both hitmarkers
+                    hitmrkr.showHitMarker();
+                    deathMarker.showHitMarker();
+                }
             }
         }
     }
