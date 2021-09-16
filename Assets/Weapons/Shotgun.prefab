@@ -83,7 +83,7 @@ MonoBehaviour:
   player: {fileID: 0}
   weaponContainer: {fileID: 0}
   fpsCam: {fileID: 0}
-  local_position: {x: -3.91, y: 1.09, z: 1.24}
+  local_position: {x: -2.869444, y: 0.6245937, z: 0.5774322}
   local_rotation: {x: -0.55, y: 3.167, z: -2.945}
   maxforce: 30
   throwChargingSpeed: 30
@@ -94,8 +94,6 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 1024
-  throwForceBar: {fileID: 0}
-  crosshair: {fileID: 0}
   weaponCrosshair: {fileID: 21300000, guid: 7db1aca1f7e00f34b932fe0203aed017, type: 3}
   defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
 --- !u!114 &5299671601359760022
@@ -133,9 +131,6 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 1024
-  ammoCountText: {fileID: 0}
-  hitmrkr: {fileID: 0}
-  deathMarker: {fileID: 0}
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   bulletHoleGraphic: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,

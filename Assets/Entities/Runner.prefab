@@ -90,10 +90,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsCam: {fileID: 4220752793621816189}
   grenade: {fileID: 6536004714789007875, guid: d23f5968c8ee29a4bba44196ed0a1d3d, type: 3}
+  pm: {fileID: 4220752793107433359}
   granade_throw_force: 40
   granade_cooldown_time: 5
   grenadeSpawnPoint: {fileID: 4220752794127094457}
-  granadeUI: {fileID: 0}
+  hookRange: 30
+  maxHookTime: 3
+  minHookDistance: 2
+  hookPullForce: 500
 --- !u!114 &4220752793107433357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +112,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recovery_speed: 10
   recovery_time: 5
-  healthBar: {fileID: 0}
 --- !u!136 &4220752793107433354
 CapsuleCollider:
   m_ObjectHideFlags: 0

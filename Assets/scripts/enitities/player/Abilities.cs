@@ -9,6 +9,8 @@ public class Abilities : MonoBehaviour
     public Transform fpsCam;
     public GameObject grenade;
 
+    public PlayerMovement pm;
+
     //--------------------------GRANADE-----------------
     float max_granade_usages = 2;
     public float granade_throw_force;
@@ -19,7 +21,10 @@ public class Abilities : MonoBehaviour
     GranadeCooldownUI granadeUI;
 
     //-------------------------GRAPPLING HOOK------------
-    float hookRange = 30;
+    public float hookRange;
+    public float maxHookTime;
+    public float minHookDistance;
+    public float hookPullForce;
 
     //UI
     UIManager uiManager;
@@ -59,8 +64,10 @@ public class Abilities : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             //grappling hook
-            Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange);
-            PlayerMovement.grapplingHook(rayHit.transform.position);
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange))
+            {
+                pm.grapplingHook(rayHit.point, maxHookTime, minHookDistance, hookPullForce, hookRange);
+            }
         }
 
         //ABILITIES COOLDOWNS

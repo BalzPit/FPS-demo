@@ -60,6 +60,18 @@ public class PlayerMovement : MonoBehaviour
     Vector3 prev_pos;
     Vector3 current_pos;
     public static Vector3 playerVelocity;
+
+    //grappling hook
+    Vector3 hookPosition;
+    Vector3 hookPullVector;
+    bool isHooked;
+    float maxHookDistance;
+    float hookTime;
+    float startHookGravity;
+    float verticalMomentum;
+    float maxHookTime;
+    float minHookDistance;
+    float hookPullForce;
     
 
     //----------------------BOOLS------------------------------
@@ -84,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         crouch_press = false;
         crouched = false;
         sliding = false;
+        isHooked = false;
 
         //prev_pos = transform.position;
         //current_pos = transform.position;
@@ -105,8 +118,17 @@ public class PlayerMovement : MonoBehaviour
         //touching the ground
         if (onGround && velocity.y < 0)
         {
-            //reset fall velocity
-            velocity.y = -8f;
+            if (!isHooked)
+            {
+                //reset fall velocity
+                velocity.y = -8f;    
+            }
+            else
+            {
+                //allow player to leave the ground
+                velocity.y = 0f;
+            }
+
             doubleJump = true;
 
             //save movement direction
@@ -222,6 +244,9 @@ public class PlayerMovement : MonoBehaviour
 
             //keep moving in the same direction of the momentum
             controller.Move(air_movement * (speed-airSpeed) * delta);
+
+            //change new momentum direction
+            air_movement = new Vector3(playerVelocity.normalized.x, 0, playerVelocity.normalized.z);
         }
 
 
@@ -259,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
             //add upward vertical velocity (see velocity formula to reach height jumpH)
             velocity.y = Mathf.Sqrt(jumpH * -2f * gravity);
         }
-        else if (Input.GetButtonDown("Jump") && !onGround && doubleJump)
+        else if (Input.GetButtonDown("Jump") && !onGround && !isHooked && doubleJump)
         {
             velocity.y = Mathf.Sqrt(jumpH * -2f * gravity);
             doubleJump = false;
@@ -272,8 +297,15 @@ public class PlayerMovement : MonoBehaviour
 
             float angle_diff_rate = 1 - ( Vector3.Angle(new_direction, air_movement)/180 ); //the higher the angle difference, the smaller the rate
 
-            //calculate direction of sum of vectors and reapply original magnitude so no speed gained when double jumping
+            //calculate direction of sum of vectors and reapply original magnitude so no speed is gained when double jumping
             air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * air_movement_mag * angle_diff_rate; 
+        }
+        else if (Input.GetButtonDown("Jump") && !onGround && isHooked)
+        {
+            //double jump already used while hooked, unhook
+            isHooked = false;
+            //keep hook vertical momentum
+            velocity.y = verticalMomentum;
         }
         
         //reomve RECOIL force
@@ -288,9 +320,44 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //fall
-        velocity.y += gravity * delta;
+        if (!isHooked)
+        {
+            //all normal
+            velocity.y += gravity * delta;
+            startHookGravity = velocity.y;
+        }
+        else
+        {
+            //reduce impact of gravity while grappling hook pulls the player
+            velocity.y = Mathf.Lerp(startHookGravity, gravity * 0.3f, hookTime/maxHookTime);
+        }
         controller.Move(velocity * delta);
 
+
+        //GRAPPLING HOOK
+        if (isHooked)
+        {
+            hookPullVector = hookPosition - transform.position;
+            //if player is close enough to hook or enough time passed, un-hook
+            if (hookTime >= maxHookTime || hookPullVector.magnitude <= minHookDistance)
+            {
+                isHooked = false;
+                hookTime = 0;
+                //keep hook vertical momentum
+                velocity.y = verticalMomentum;
+            }
+            else
+            {
+                //normalize pull vector
+                hookPullVector = hookPullVector.normalized;
+                //move towards the hook with a pull strength that depends on the vicinity to the hook
+                controller.Move(hookPullVector * (hookPullForce*(hookPullVector.magnitude/maxHookDistance)) * delta);
+                hookTime += delta;
+            }
+
+            //save vertical momentum
+            verticalMomentum = playerVelocity.y;
+        }
     }
     
 
@@ -382,12 +449,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     /**
-     * Activate hook movements and set hook position when the player has launched the hook
+     * Activate hook movements and set hook position when the player launches the hook
      * 
      */
-     public static void grapplingHook(Vector3 hookpos)
+    public void grapplingHook(Vector3 hookpos, float maxGrappleTime, float minGrappleDistance, float grapplePullForce, float grappleRange)
     {
-
-
+        maxHookTime = maxGrappleTime;
+        minHookDistance = minGrappleDistance;
+        hookPullForce = grapplePullForce;
+        maxHookDistance = grappleRange;
+        hookPosition = hookpos;
+        isHooked = true;
     }
 }
