@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public ThrowForceBar throwForceBar;
     public Image crosshair;
     public Text ammoCountText;
+    public GameOverScreen gameOverScreen;
+    public PlayerUICanvas uiCanvas;
 
 
     public HealthBar getHealthBar()
@@ -48,5 +50,11 @@ public class UIManager : MonoBehaviour
     public Text getAmmoCounter()
     {
         return ammoCountText;
+    }
+
+    public void gameOver()
+    {
+        gameOverScreen.show();
+        uiCanvas.hide();
     }
 }

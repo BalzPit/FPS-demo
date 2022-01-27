@@ -8,7 +8,8 @@ public class PickUpSystem : MonoBehaviour
     public Weapon gunScript;
     public Rigidbody rb;
     public BoxCollider coll;
-    public Transform player, weaponContainer, fpsCam;
+    //GameObject player;
+    Transform playerTransform, weaponContainer, fpsCam;
 
     public Vector3 local_position;
     public Vector3 local_rotation;
@@ -54,6 +55,13 @@ public class PickUpSystem : MonoBehaviour
         crosshair = uiManager.getCrosshair();
         hitmrkr = uiManager.getHitMarker();
         deathMarker = uiManager.getDeathHitMarker();
+
+        /*get player transforms
+        player = FindObjectOfType<GameManager>().getRunnerReference();
+
+        playerTransform = player.transform;
+        weaponContainer = playerTransform.GetChild(2).GetChild(0).GetChild(1);
+        fpsCam = playerTransform.GetChild(2).GetChild(0).GetChild(0);*/
     }
 
     // Start is called before the first frame update
@@ -70,6 +78,7 @@ public class PickUpSystem : MonoBehaviour
             gunScript.enabled = false;
             rb.isKinematic = false;
             coll.isTrigger = false;
+            slotFull = false; // !!!!!TERRIBLE IDEA!!!! but for now it works because player spawns without guns
         }
         else
         {
@@ -87,7 +96,7 @@ public class PickUpSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distanceToPlayer = (player.position - transform.position).magnitude;
+        float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
 
         //check if player is trying to interact with the weapon
         if (Input.GetKeyDown(KeyCode.E) && distanceToPlayer <= pickUpRange && !equipped && !slotFull)
@@ -189,8 +198,8 @@ public class PickUpSystem : MonoBehaviour
 
         //gun carries momentum of player       
         //calculate current velocity
-        velocity = (current_pos - prev_pos) / Time.deltaTime;
-        rb.velocity = velocity;
+        //velocity = (current_pos - prev_pos) / Time.deltaTime;
+        //rb.velocity = velocity;
 
         //add gun throw force
         rb.AddForce(fpsCam.forward * throw_force, ForceMode.Impulse);
@@ -256,7 +265,7 @@ public class PickUpSystem : MonoBehaviour
         bool wall = true;
 
         //bool wall = Physics.Raycast(transform.position, transform.position - weaponContainer.position, distance, damageable);
-        bool hit = Physics.Raycast(transform.position, player.position - transform.position , out rayHit ,distance);
+        bool hit = Physics.Raycast(transform.position, playerTransform.position - transform.position , out rayHit ,distance);
 
         if(!hit)
         {
@@ -272,5 +281,17 @@ public class PickUpSystem : MonoBehaviour
 
         //Debug.Log("wall = "+ wall);
         return wall;
+    }
+
+    /* sets playerTransform, weaponContainer and fpsCam 
+     * p: player transform
+     * w: weaponContainer transform
+     * c: fpsCam transform
+     */
+    public void setTransforms(Transform p, Transform w, Transform c)
+    {
+        playerTransform = p;
+        weaponContainer = w;
+        fpsCam = c;
     }
 }

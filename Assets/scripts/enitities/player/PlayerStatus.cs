@@ -7,16 +7,20 @@ public class PlayerStatus : MonoBehaviour
     float maxHealth = 100;
     float health;
 
+    //damage multiplier
+    float dmgMulti = 1;
+    bool buffed = false;
+    public float buffTime; //set in editor
+    float buffTimeElapsed;
+
     //health recovery
     public float recovery_speed;
     public float recovery_time;
     float recovery_elapsed;
 
-    HealthBar healthBar;
-
     //UI
     UIManager uiManager;
-
+    HealthBar healthBar;
 
     private void Awake()
     {
@@ -57,6 +61,18 @@ public class PlayerStatus : MonoBehaviour
                 healthBar.setHealth(health);
             }
         }
+
+        //buff time countdown
+        if(buffed == true)
+        {
+            buffTimeElapsed += delta;
+
+            if (buffTimeElapsed >= buffTime)
+            {
+                buffed = false;
+                dmgMulti = 1;
+            }
+        }
     }
 
 
@@ -81,9 +97,27 @@ public class PlayerStatus : MonoBehaviour
             health = 0;
 
             //do something when player dies
+            FindObjectOfType<GameManager>().GameOver();
         }
 
         //update UI healthbar
         healthBar.setHealth(health);
+    }
+
+    /* buff player damage
+     * amount: multiplier of the buff (amount = 1 -> 100% buff) 
+     */
+    public void buffDmgMultiplier(float amount)
+    {
+        dmgMulti += amount;
+        //start countdown to remove buff
+        buffTimeElapsed = 0;
+        buffed = true;
+    }
+
+    //return the damage multiplier value the player currently holds
+    public float getDmgMultiplier()
+    {
+        return dmgMulti;
     }
 }

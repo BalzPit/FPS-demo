@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 526241894359945111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.098, y: 20.17, z: -20.07}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4121759059473743934}
   - {fileID: 9049350188428555876}
@@ -80,14 +80,11 @@ MonoBehaviour:
   gunScript: {fileID: 5299671601359760022}
   rb: {fileID: 4940884385622708057}
   coll: {fileID: 1142236532529141816}
-  player: {fileID: 0}
-  weaponContainer: {fileID: 0}
-  fpsCam: {fileID: 0}
   local_position: {x: -2.869444, y: 0.6245937, z: 0.5774322}
   local_rotation: {x: -0.55, y: 3.167, z: -2.945}
-  maxforce: 30
-  throwChargingSpeed: 30
-  minDropForwardForce: 10
+  maxforce: 70
+  throwChargingSpeed: 50
+  minDropForwardForce: 20
   dropUpwardForce: 1
   pickUpRange: 3
   equipped: 0
@@ -122,9 +119,6 @@ MonoBehaviour:
   recoil_direction: {x: 2, y: -5, z: -3}
   rotation_speed: 6
   return_speed: 25
-  fpsCam: {fileID: 0}
-  camHolder: {fileID: 0}
-  player_transform: {fileID: 0}
   shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
   pickupSys: {fileID: 3814162088225678575}
   attackPoint: {fileID: 4121759059473743934}

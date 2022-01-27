@@ -95,8 +95,8 @@ MonoBehaviour:
   granade_cooldown_time: 5
   grenadeSpawnPoint: {fileID: 4220752794127094457}
   hookRange: 30
-  maxHookTime: 3
-  minHookDistance: 2
+  maxHookTime: 1.5
+  minHookDistance: 3
   hookPullForce: 500
 --- !u!114 &4220752793107433357
 MonoBehaviour:
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c733c103f15d3e428a4e0d909c476c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffTime: 3
   recovery_speed: 10
   recovery_time: 5
 --- !u!136 &4220752793107433354

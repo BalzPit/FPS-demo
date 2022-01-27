@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         //time delta from last frame
         float delta = Time.deltaTime;
         //check if the player is on the ground
-        onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        this.OnGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         //gather movement input
         float x = Input.GetAxis("Horizontal");
@@ -118,13 +118,7 @@ public class PlayerMovement : MonoBehaviour
         //touching the ground
         if (onGround && velocity.y < 0)
         {
-            if (!isHooked)
-            {
-                //reset fall velocity
-                velocity.y = -8f;    
-            }
-            else
-            {
+            if (isHooked) { 
                 //allow player to leave the ground
                 velocity.y = 0f;
             }
@@ -234,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             //move = air_movement;
 
             //update air movement vector (only has x and z components)
-            //air_movement = (air_movement + new Vector3(playerVelocity.x, 0, playerVelocity.z)).normalized
+            //air_movement = (air_movement + new Vector3(playerVelocity.x, 0, playerVelocity.z)).normalized;
 
             //change direction
             air_move = transform.right * x + transform.forward * z;
@@ -246,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(air_movement * (speed-airSpeed) * delta);
 
             //change new momentum direction
-            air_movement = new Vector3(playerVelocity.normalized.x, 0, playerVelocity.normalized.z);
+            //air_movement = new Vector3(playerVelocity.normalized.x, 0, playerVelocity.normalized.z);
         }
 
 
@@ -297,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
 
             float angle_diff_rate = 1 - ( Vector3.Angle(new_direction, air_movement)/180 ); //the higher the angle difference, the smaller the rate
 
-            //calculate direction of sum of vectors and reapply original magnitude so no speed is gained when double jumping
+            //calculate direction of sum of vectors and re-apply original magnitude so no speed is gained when double jumping
             air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * air_movement_mag * angle_diff_rate; 
         }
         else if (Input.GetButtonDown("Jump") && !onGround && isHooked)
@@ -461,4 +455,29 @@ public class PlayerMovement : MonoBehaviour
         hookPosition = hookpos;
         isHooked = true;
     }
+
+
+    //onGround property
+    public bool OnGround
+    {
+        get { return onGround; }
+
+        set
+        {
+            if (value == onGround)
+                return;
+
+            onGround = value;
+
+            if (onGround && velocity.y < 0) //make sure we were falling
+            {
+                float vel = -velocity.y/100;
+                //we just touched the ground landing from a fall
+                camRecoil.Fire(new Vector3(-1, 0, 0), 5, 1/vel, vel);
+
+                velocity.y = -8f;
+            }
+        }
+    }
+
 }

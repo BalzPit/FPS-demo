@@ -26,6 +26,9 @@ public class EnemyStatus : MonoBehaviour
     //AI
     public EnemyAI ai;
 
+    //gamemanager reference
+    GameManager manager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +37,9 @@ public class EnemyStatus : MonoBehaviour
 
         //set delay time to remove healthbar after death
         removeHealthDelay = healthDelay.slide_time;
+
+        //notify manager of successfull instantiation
+        manager.enemySpawned();
     }
 
 
@@ -90,7 +96,16 @@ public class EnemyStatus : MonoBehaviour
     {
         Explode();
         Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+        //spawn a random weapon
+        GameObject weapon = FindObjectOfType<GameManager>().randomWeapon();
+
         Destroy(gameObject);
+
+        Instantiate(weapon, transform.position, Random.rotation);
+
+        //notify gamemanager
+        manager.enemyDead();
     }
 
 
@@ -141,5 +156,11 @@ public class EnemyStatus : MonoBehaviour
     {
         //show healthbar
         healthCanvas.enabled = true;
+    }
+
+    //take gamemanager reference
+    public void setGameManager(GameManager m)
+    {
+        manager = m;
     }
 }

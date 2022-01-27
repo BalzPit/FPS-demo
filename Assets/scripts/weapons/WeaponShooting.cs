@@ -19,9 +19,11 @@ public class WeaponShooting : Weapon
     bool shooting, readyToShoot, can_shoot;
 
     //references
-    public Camera fpsCam;
-    public Transform camHolder;
-    public Transform player_transform;
+    GameObject player;
+    Camera fpsCam;
+    Transform camTransform;
+    Transform camHolder;
+    Transform playerTransform;
     Shaker cameraShaker;
     public ShakePreset shake_preset;
     public PickUpSystem pickupSys;
@@ -50,6 +52,17 @@ public class WeaponShooting : Weapon
         ammoCountText = uiManager.getAmmoCounter();
         hitmrkr = uiManager.getHitMarker();
         deathMarker = uiManager.getDeathHitMarker();
+
+        //get transforms ffrom player gameobject
+        player = FindObjectOfType<GameManager>().getRunnerReference();
+
+        playerTransform = player.transform;
+        camHolder = playerTransform.GetChild(2).GetChild(0);
+        camTransform = camHolder.GetChild(0);
+        fpsCam = camTransform.gameObject.GetComponent<Camera>();
+
+        //pass transforms to pickupSystem script of the weapon
+        pickupSys.setTransforms(playerTransform, camHolder.GetChild(1), camTransform);
     }
 
     // Start is called before the first frame update
@@ -117,10 +130,10 @@ public class WeaponShooting : Weapon
         float y = Random.Range(-spread, spread);
 
         //calculate direction with spread
-        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
+        Vector3 direction = camTransform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))//, damageable))//, whatIsEnemy))
+        if (Physics.Raycast(camTransform.position, direction, out rayHit, range))//, damageable))//, whatIsEnemy))
         {
             //Debug.Log(rayhit.collider.name);
             Debug.Log(rayHit.collider.name);
@@ -128,21 +141,25 @@ public class WeaponShooting : Weapon
             if (rayHit.collider.CompareTag("Enemy"))
             {
                 //enemy needs to be tagged as "Enemy" and have a script with the "TakeDamage" function
-                float dmg = rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage, direction, rayHit.point);
+                float dmg = rayHit.collider.GetComponent<EnemyStatus>().TakeDamage(damage* player.GetComponent<PlayerStatus>().getDmgMultiplier(), direction, rayHit.point);
 
                 if (dmg > 0) {
                     //show hitmarker
                     hitmrkr.showHitMarker();
                 }
+                //enemy killed
                 else if (dmg == -1) {
                     //show both hitmarkers
                     hitmrkr.showHitMarker();
                     deathMarker.showHitMarker();
+
+                    //give buff to player
+                    player.GetComponent<PlayerStatus>().buffDmgMultiplier(0.5f);
                 }
             }
         }
 
-        Debug.DrawLine(fpsCam.transform.position, rayHit.point, new Color(256, 0, 0), 10f);
+        Debug.DrawLine(camTransform.position, rayHit.point, new Color(256, 0, 0), 10f);
         Debug.DrawRay(rayHit.point, rayHit.normal, new Color(0, 256, 0), 10f);
 
         //Graphics
