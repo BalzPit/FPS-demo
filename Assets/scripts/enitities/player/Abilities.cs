@@ -61,7 +61,8 @@ public class Abilities : MonoBehaviour
             throwGranade();
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        //if (Input.GetButtonDown("Fire2"))
+        if(Input.GetKeyUp(KeyCode.Q))
         {
             //grappling hook
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange))

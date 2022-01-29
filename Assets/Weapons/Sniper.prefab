@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2497618677672379785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7315134437326948978}
+  m_Layer: 2
+  m_Name: SmokePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7315134437326948978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2497618677672379785}
+  m_LocalRotation: {x: -0.3243617, y: -0.045302775, z: 0.13069604, w: 0.93576485}
+  m_LocalPosition: {x: 0.907, y: 0.953, z: -0.113}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8126890606643664346}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -36.528, y: -12.182, z: 19.936}
 --- !u!1 &8126890605971761424
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +73,7 @@ GameObject:
   - component: {fileID: 8126890606643664342}
   - component: {fileID: 8126890606643664340}
   - component: {fileID: 889839113385623335}
+  - component: {fileID: 114986572365710000}
   m_Layer: 2
   m_Name: Sniper
   m_TagString: Untagged
@@ -63,6 +94,7 @@ Transform:
   m_Children:
   - {fileID: 8126890605174320953}
   - {fileID: 8126890605971761427}
+  - {fileID: 7315134437326948978}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -123,6 +155,7 @@ MonoBehaviour:
     m_Bits: 1024
   weaponCrosshair: {fileID: 21300000, guid: 366d765188c7bf344ba3057c280ac0b5, type: 3}
   defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
+  weaponStatusScript: {fileID: 114986572365710000}
 --- !u!114 &889839113385623335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +183,7 @@ MonoBehaviour:
   rotation_speed: 6
   return_speed: 25
   shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
+  weaponStatusScript: {fileID: 114986572365710000}
   pickupSys: {fileID: 8126890606643664340}
   attackPoint: {fileID: 8126890605971761427}
   damageable:
@@ -160,6 +194,25 @@ MonoBehaviour:
   bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
     type: 3}
   cartridge: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b, type: 3}
+--- !u!114 &114986572365710000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8126890606643664347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff00fd3ef16905c498ed07226053de1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 100
+  shootingDecrease: 5
+  pickupScript: {fileID: 8126890606643664340}
+  breakEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    type: 3}
+  smokeTrail: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
+  smokeTransform: {fileID: 7315134437326948978}
 --- !u!1001 &8126890605173929407
 PrefabInstance:
   m_ObjectHideFlags: 0

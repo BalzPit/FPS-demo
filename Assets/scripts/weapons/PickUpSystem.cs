@@ -45,6 +45,9 @@ public class PickUpSystem : MonoBehaviour
     hitmarker hitmrkr;
     hitmarker deathMarker;
 
+    //Script references
+    public WeaponStatus weaponStatusScript;
+
     //called before start even if script is inactive
     private void Awake()
     {
@@ -115,7 +118,7 @@ public class PickUpSystem : MonoBehaviour
             prev_pos = current_pos;
             current_pos = transform.position;
 
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KeyCode.Mouse1))
             {
                 if (throw_force < maxforce)
                 {
@@ -128,7 +131,7 @@ public class PickUpSystem : MonoBehaviour
                 }
             }
             //drop/throw weapon
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Mouse1))
             {
                 Drop();
                 //throwbar force will be reset to 0 once the bar disappears (look at Update method in throwForceBar class)
@@ -179,7 +182,7 @@ public class PickUpSystem : MonoBehaviour
 
 
 
-    private void Drop()
+    public void Drop()
     {
         if (gunScript.reloading)
         {
@@ -235,6 +238,9 @@ public class PickUpSystem : MonoBehaviour
                 //damage enemy
                 dmg = hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1, 1, 1), collision.GetContact(0).point);
 
+                //decrease weapon durability
+                weaponStatusScript.durabilityDecrease(dmg);
+
                 //bounce back and loose velocity
                 rb.velocity = kept_velocity_rate * new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
 
@@ -269,7 +275,7 @@ public class PickUpSystem : MonoBehaviour
 
         if(!hit)
         {
-            //solves a weird bug that prevents player from picking up weapon if the player model and the gun model clip in a way that prevents the raycast to hit anything. when this happens, clearly the gun and the player have no wall in between (hopefully)
+            //solves a bug that prevents player from picking up weapon if the player model and the gun model clip in a way that prevents the raycast to hit anything. when this happens, clearly it's because the gun and the player have no wall in between (probably)
             wall = false;
         }
         //no object is in the way, object can be picked up
@@ -293,5 +299,11 @@ public class PickUpSystem : MonoBehaviour
         playerTransform = p;
         weaponContainer = w;
         fpsCam = c;
+    }
+
+    //get weapon equipment status
+    public bool getEquippedValue()
+    {
+        return equipped;
     }
 }

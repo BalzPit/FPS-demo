@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1142236532529141816}
   - component: {fileID: 3814162088225678575}
   - component: {fileID: 5299671601359760022}
+  - component: {fileID: 114647389649716290}
   m_Layer: 2
   m_Name: Shotgun
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   m_Children:
   - {fileID: 4121759059473743934}
   - {fileID: 9049350188428555876}
+  - {fileID: 2756483599072336484}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -93,6 +95,7 @@ MonoBehaviour:
     m_Bits: 1024
   weaponCrosshair: {fileID: 21300000, guid: 7db1aca1f7e00f34b932fe0203aed017, type: 3}
   defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
+  weaponStatusScript: {fileID: 114647389649716290}
 --- !u!114 &5299671601359760022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +123,7 @@ MonoBehaviour:
   rotation_speed: 6
   return_speed: 25
   shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
+  weaponStatusScript: {fileID: 114647389649716290}
   pickupSys: {fileID: 3814162088225678575}
   attackPoint: {fileID: 4121759059473743934}
   damageable:
@@ -130,6 +134,25 @@ MonoBehaviour:
   bulletHoleGraphic: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d,
     type: 3}
   cartridge: {fileID: 1000013947318026, guid: 7ca96822084510147adb2aea03d45e3b, type: 3}
+--- !u!114 &114647389649716290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526241894359945111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff00fd3ef16905c498ed07226053de1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 100
+  shootingDecrease: 8
+  pickupScript: {fileID: 3814162088225678575}
+  breakEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    type: 3}
+  smokeTrail: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
+  smokeTransform: {fileID: 2756483599072336484}
 --- !u!1 &5574143439134865126
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +182,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6218378233914999755}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6716837085008059227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2756483599072336484}
+  m_Layer: 2
+  m_Name: smokePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2756483599072336484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716837085008059227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.848, y: 0.452, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6218378233914999755}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9049350188428422370
 PrefabInstance:

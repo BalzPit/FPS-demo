@@ -108,6 +108,7 @@
     <Compile Include="Assets\scripts\weapons\Weapon.cs" />
     <Compile Include="Assets\scripts\weapons\WeaponShooting.cs" />
     <Compile Include="Assets\UIManager.cs" />
+    <Compile Include="Assets\WeaponStatus.cs" />
     <None Include="Assets\MilkShake\Documentation\Simple Setup.txt" />
     <None Include="Assets\MilkShake\Documentation\Readme.txt" />
     <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />

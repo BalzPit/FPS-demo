@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
+    int enemyType;
+
     float health;
     float maxHealth = 100;
-    public float explosion_dmg;
-    public float explosion_radius;
-    public float explosion_force;
+    float explosion_dmg = 50;
+    float explosion_radius = 5;
+    float explosion_force = 5;
 
     public Rigidbody rb;
     public GameObject deathEffect;
@@ -32,6 +32,7 @@ public class EnemyStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //default settings
         health = maxHealth;
         healthBar.setMaxHealth(maxHealth);
 
@@ -98,14 +99,12 @@ public class EnemyStatus : MonoBehaviour
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         //spawn a random weapon
-        GameObject weapon = FindObjectOfType<GameManager>().randomWeapon();
+        GameObject weapon = FindObjectOfType<GameManager>().randomWeapon(enemyType);
 
         Destroy(gameObject);
 
-        Instantiate(weapon, transform.position, Random.rotation);
-
-        //notify gamemanager
-        manager.enemyDead();
+        //notify gamemanager of death
+        manager.enemyDead(transform, enemyType);
     }
 
 
@@ -162,5 +161,46 @@ public class EnemyStatus : MonoBehaviour
     public void setGameManager(GameManager m)
     {
         manager = m;
+    }
+
+    //set type of enemy, health, size, damage and weapons dropped will change according to the type
+    public void setType(int type)
+    {
+        enemyType = type;
+
+        //there are 3 types
+        switch (type)
+        {
+            case 0:
+                //small enemy
+                maxHealth = 100;
+                explosion_dmg = 50;
+                explosion_radius = 5;
+                explosion_force = 5;
+                //no change to scale
+                break;
+            case 1:
+                //medium enemy
+                maxHealth = 200;
+                explosion_dmg = 70;
+                explosion_radius = 7;
+                explosion_force = 10;
+                gameObject.GetComponent<Transform>().localScale += new Vector3(1, 1, 1); //1 = same as type
+                break;
+            case 2:
+                //big enemy
+                maxHealth = 400;
+                explosion_dmg = 90;
+                explosion_radius = 12;
+                explosion_force = 15;
+                gameObject.GetComponent<Transform>().localScale += new Vector3(2, 2, 2); //2 = same as type
+                break;
+            default:
+                break;
+        }
+
+        //set selected health
+        health = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
     }
 }

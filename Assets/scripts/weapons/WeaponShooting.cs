@@ -26,6 +26,8 @@ public class WeaponShooting : Weapon
     Transform playerTransform;
     Shaker cameraShaker;
     public ShakePreset shake_preset;
+    //Script references
+    public WeaponStatus weaponStatusScript;
     public PickUpSystem pickupSys;
 
 
@@ -114,6 +116,9 @@ public class WeaponShooting : Weapon
             PlayerMovement.sprintLock();
             bulletsShot = bulletsPerTap;
             Shoot();
+
+            //decrease weapon durability depending on wepon
+            weaponStatusScript.durabilityDecrease(weaponStatusScript.shootingDecrease);
         }
     }
 
@@ -180,7 +185,7 @@ public class WeaponShooting : Weapon
             Invoke("Shoot", timeBetweenShots);
         }
 
-        //recoil only after all bullets in the shot have been fired, or it's a burst weapon 
+        //recoil only after all bullets in the shot have been fired, or it's a burst weapon  !! second part may be wrong !!
         if(bulletsShot == 0 || timeBetweenShots != 0)
         {
             //camera Shake

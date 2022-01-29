@@ -114,7 +114,7 @@ MonoBehaviour:
   damageable:
     serializedVersion: 2
     m_Bits: 3072
-  explosion_effect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+  explosion_effect: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 3}
   smoke_effect: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8,
     type: 3}

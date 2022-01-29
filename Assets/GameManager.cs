@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
 
     //score
-    int kills = 0;
+    int points = 0;
 
     //enemy spawns
     int enemyCount = 0;
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         uiManager.gameOver();
     }
 
-    //restarts the currently active scene
+    //resets the currently active scene
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -69,27 +69,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //------------------------------------------------------------------------------- PLAYER
+    //------------------------------------------------------------------------------- WEAPONS
 
-    //selects a random weapon from the ones available
-    public GameObject randomWeapon()
+    //selects a random weapon from the ones available, depending on the type of enemy
+    public GameObject randomWeapon(int enemyType)
     {
         GameObject weapon;
 
-        int r = Random.Range(1, 5); 
+        int r = Random.Range(0, enemyType+1); 
 
         switch (r)
         {
+            case 0:
+                weapon = pistol;
+                break;
             case 1:
                 weapon = ar;
                 break;
             case 2:
-                weapon = pistol;
-                break;
-            case 3:
                 weapon = sniper;
                 break;
-            case 4:
+            case 3:
                 weapon = shotgun;
                 break;
             default:
@@ -99,6 +99,15 @@ public class GameManager : MonoBehaviour
 
         return weapon;
     }
+
+    //spawn a random weapon depending on the enemy type
+    void spawnRandomWeapon(Transform spawnPos, int enemyType)
+    {
+        GameObject weapon = randomWeapon(enemyType);
+        Instantiate(weapon, spawnPos.position, Random.rotation);
+    }
+
+    //------------------------------------------------------------------------------- PLAYER
 
     public GameObject getRunnerReference()
     {
@@ -113,7 +122,11 @@ public class GameManager : MonoBehaviour
         if (enemyCount < maxEnemyCount)
         {
             GameObject spawnedEnemy = Instantiate(enemy, spawnPoint.position, Random.rotation);
-            spawnedEnemy.GetComponent<EnemyStatus>().setGameManager(this);
+            EnemyStatus enemyScript = spawnedEnemy.GetComponent<EnemyStatus>();
+
+            enemyScript.setGameManager(this);
+            //set type of enemy
+            enemyScript.setType(Random.Range(0,3));
         }
     }
 
@@ -122,10 +135,15 @@ public class GameManager : MonoBehaviour
     {
         enemyCount++;
     }
-    //manager is notified
-    public void enemyDead()
+
+    //manager is notified and spawns a random weapon on enemy's position
+    public void enemyDead(Transform enemyTransform, int enemyType)
     {
+        //spawn random weapon on enemy's last position
+        spawnRandomWeapon(enemyTransform, enemyType);
+
         enemyCount--;
+
         if (enemyCount == 0)
         {
             nextRound();

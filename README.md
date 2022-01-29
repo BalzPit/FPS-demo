@@ -4,16 +4,17 @@ Since it's my first time with Unity and making a game in general, I had to follo
 
 In this game, the player is able to perform the following actions:
 - walk and look around
-- run
-- jump and double-jump
+- jump 
 - crouch
 - throw granades (granade energy refills like in Destiny)
 - pick up weapons
 - shoot/reload weapons
-- drop/throw weapons (this does damage when weapon collides with enemies)
+- drop/throw weapons
 - loose health/die when damaged
 
 Advanced movement features:
+- run
+- double-jump
 - wepon recoil moves the player character
   - shooting the ground right after a jump lets the player jump higher (only certain weapons have a strong enough recoil to make this effect noticeable)
 
@@ -22,23 +23,19 @@ BACKLOG:
 
 ----- general -----
 - menus
-- a couple of proper levels
-  - player spawnpoints
+- a proper level
 
 
 ----- gameplay features -----
-- melee
-- other enemy types
-- other weapon types (out of scope)
+- stun enemies when hit by weapon
 
 
 ----- UI -----
 - show/hide enemy healthbar dynamically
 - damage direction on hit
-
+- weapon durability meter?
 
 ----- art -----
-- viewmodel animations
 
 
 ----- audio -----
@@ -49,15 +46,13 @@ BACKLOG:
 
 
 ----- fixes -----
+- !!!player model intercepting shots!!!
 - force applied to enemies when hit
 - residual movement when landing
 - crouch
 - weapon recoil effects
 - bullet holes not rotating correctly
 - weapons damaging enemies when on sloped floors
-
-
------ gameplay tweaks ------
 
 
 ----- refactors/reworks -----
@@ -67,14 +62,17 @@ BACKLOG:
 - grappling hook
 - granade/weapon ammo UI
 
-Problem: 
-- why would the player choose to ever throw an equipped weapon (it's easier to hit enemies at close range) if they could just melee?
-- grapple hook is probably best removed (cool when it works but it's too buggy, doing it right is probably out of scope for this project)
-
 DONE:
 - unified hitmarker system (currently every weapon/ability takes hold of the hitmarker UI element on the playerUI canvas independently, I would like to simply have a general system that shows hitmarkers when player deals damage to anything that takes damage and with any source)
 - UI Manager
 - granade hitmarker
-- grapple hook 
+- grapple hook (cool when it works but it's too buggy, doing it right is probably out of scope for this project)
 - enemy spawn points and system (very barebones)
 - enemy and wepon scripts rework to be instantiated at runtime
+- enemy types (same enemy with different health, size, damage)
+- weapon durability
+
+Out of scope:
+- other weapon types
+- different enemy types
+- viewmodel animations (probably)
