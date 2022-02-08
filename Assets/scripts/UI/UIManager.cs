@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public ThrowForceBar throwForceBar;
     public Image crosshair;
     public Text ammoCountText;
+    public Text scoreText;
+    public Text gameOverScoreText;
     public GameOverScreen gameOverScreen;
     public PlayerUICanvas uiCanvas;
 
@@ -52,8 +54,14 @@ public class UIManager : MonoBehaviour
         return ammoCountText;
     }
 
-    public void gameOver()
+    public Text getScoreText()
     {
+        return scoreText;
+    }
+
+    public void gameOver(int points)
+    {
+        gameOverScoreText.text = "You scored " + points + " points!";
         gameOverScreen.show();
         uiCanvas.hide();
     }

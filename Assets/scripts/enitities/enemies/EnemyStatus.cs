@@ -3,6 +3,7 @@
 public class EnemyStatus : MonoBehaviour
 {
     int enemyType;
+    int enemyPoints=0;
 
     float health;
     float maxHealth = 100;
@@ -29,6 +30,8 @@ public class EnemyStatus : MonoBehaviour
     //gamemanager reference
     GameManager manager;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,7 @@ public class EnemyStatus : MonoBehaviour
         //notify manager of successfull instantiation
         manager.enemySpawned();
     }
+
 
 
     /*
@@ -104,7 +108,7 @@ public class EnemyStatus : MonoBehaviour
         Destroy(gameObject);
 
         //notify gamemanager of death
-        manager.enemyDead(transform, enemyType);
+        manager.enemyDead(transform, enemyType, enemyPoints);
     }
 
 
@@ -139,6 +143,7 @@ public class EnemyStatus : MonoBehaviour
     }
 
 
+
     /*
      * fade the healthbar out
      */
@@ -147,6 +152,8 @@ public class EnemyStatus : MonoBehaviour
         //remove healthbar
         healthCanvas.enabled = false;
     }
+
+
 
     /*
      * show the healthbar
@@ -157,11 +164,15 @@ public class EnemyStatus : MonoBehaviour
         healthCanvas.enabled = true;
     }
 
+
+
     //take gamemanager reference
     public void setGameManager(GameManager m)
     {
         manager = m;
     }
+
+
 
     //set type of enemy, health, size, damage and weapons dropped will change according to the type
     public void setType(int type)
@@ -177,6 +188,7 @@ public class EnemyStatus : MonoBehaviour
                 explosion_dmg = 50;
                 explosion_radius = 5;
                 explosion_force = 5;
+                enemyPoints = 5;
                 //no change to scale
                 break;
             case 1:
@@ -185,6 +197,7 @@ public class EnemyStatus : MonoBehaviour
                 explosion_dmg = 70;
                 explosion_radius = 7;
                 explosion_force = 10;
+                enemyPoints = 10;
                 gameObject.GetComponent<Transform>().localScale += new Vector3(1, 1, 1); //1 = same as type
                 break;
             case 2:
@@ -193,6 +206,7 @@ public class EnemyStatus : MonoBehaviour
                 explosion_dmg = 90;
                 explosion_radius = 12;
                 explosion_force = 15;
+                enemyPoints = 20;
                 gameObject.GetComponent<Transform>().localScale += new Vector3(2, 2, 2); //2 = same as type
                 break;
             default:

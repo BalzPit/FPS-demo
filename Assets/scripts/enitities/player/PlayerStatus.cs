@@ -22,6 +22,8 @@ public class PlayerStatus : MonoBehaviour
     UIManager uiManager;
     HealthBar healthBar;
 
+
+
     private void Awake()
     {
         //UI
@@ -30,12 +32,16 @@ public class PlayerStatus : MonoBehaviour
         healthBar = uiManager.getHealthBar();
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         healthBar.setMaxHealth(maxHealth);
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -104,6 +110,8 @@ public class PlayerStatus : MonoBehaviour
         healthBar.setHealth(health);
     }
 
+
+
     /* buff player damage
      * amount: multiplier of the buff (amount = 1 -> 100% buff) 
      */
@@ -114,6 +122,8 @@ public class PlayerStatus : MonoBehaviour
         buffTimeElapsed = 0;
         buffed = true;
     }
+
+
 
     //return the damage multiplier value the player currently holds
     public float getDmgMultiplier()

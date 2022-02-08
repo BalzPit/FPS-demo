@@ -21,17 +21,33 @@ public class WeaponStatus : MonoBehaviour
     //transform reference
     public Transform smokeTransform;
 
+    //misc
+    Vector3 effectTransformScaler = new Vector3(0.25f, 0.25f, 0.25f);
+
+    private void Start()
+    {
+        //set the initial value for durability
+        maxDurability = durability;
+        criticalDamage = false;
+    }
+
+
+
     //setter method
     public void setDurability(float dur)
     {
         durability = dur;
     }
 
+
+
     //getter method
     public float getDurability()
     {
         return durability;
     }
+
+
 
     public void durabilityDecrease(float amount)
     {
@@ -46,9 +62,12 @@ public class WeaponStatus : MonoBehaviour
         {
             //durability has become critical after taking damage
             criticalDamage = true;
-            Instantiate(smokeTrail, smokeTransform.position, Quaternion.identity, smokeTransform);
+            GameObject smoke = Instantiate(smokeTrail, smokeTransform.position, Quaternion.identity, smokeTransform);
+            smoke.transform.localScale = effectTransformScaler; //scale smoke effect
         }
     }
+
+
 
     //destroy weapon when it's broken
     void breakWeapon()
@@ -64,13 +83,6 @@ public class WeaponStatus : MonoBehaviour
         //destroy weapon gameObject
         Destroy(gameObject);
         GameObject be = Instantiate(breakEffect, transform.position, Quaternion.identity);
-        be.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);//sccale explosion down
-    }
-
-    private void Start()
-    {
-        //set the initial value for durability
-        maxDurability = durability;
-        criticalDamage = false;
+        be.transform.localScale = effectTransformScaler; //scale explosion down
     }
 }

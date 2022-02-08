@@ -1,5 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,11 +27,20 @@ public class GameManager : MonoBehaviour
     int enemyCount = 0;
     int maxEnemyCount = 0;
 
+    //UI
+    Text scoreText;
+
     //prepare all references needed from the scene
     void Start()
     {
+        Time.timeScale = 1;
+
+        //get script instances
         movementScript = FindObjectOfType<PlayerMovement>();
         abilitiesScript = FindObjectOfType<Abilities>();
+
+        //get UI instances
+        scoreText = uiManager.getScoreText();
 
         //spawn 5 enemies at the start
         nextRound();
@@ -42,12 +52,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //stop player and show game over screen
-        Debug.Log("Game over!");
         movementScript.enabled = false;
         abilitiesScript.enabled = false;
 
         Cursor.lockState = CursorLockMode.None; //makes menu interactable
-        uiManager.gameOver();
+        uiManager.gameOver(points);
+
+        //stop game
+        Time.timeScale = 0;
     }
 
     //resets the currently active scene
@@ -136,9 +148,13 @@ public class GameManager : MonoBehaviour
         enemyCount++;
     }
 
-    //manager is notified and spawns a random weapon on enemy's position
-    public void enemyDead(Transform enemyTransform, int enemyType)
+    //manager is notified, updates score and spawns a random weapon on enemy's position
+    public void enemyDead(Transform enemyTransform, int enemyType, int enemyScore)
     {
+        //update score text
+        points += enemyScore;
+        scoreText.text = "Score: "+ points;
+
         //spawn random weapon on enemy's last position
         spawnRandomWeapon(enemyTransform, enemyType);
 

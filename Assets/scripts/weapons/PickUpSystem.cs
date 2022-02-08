@@ -48,6 +48,8 @@ public class PickUpSystem : MonoBehaviour
     //Script references
     public WeaponStatus weaponStatusScript;
 
+
+
     //called before start even if script is inactive
     private void Awake()
     {
@@ -66,6 +68,8 @@ public class PickUpSystem : MonoBehaviour
         weaponContainer = playerTransform.GetChild(2).GetChild(0).GetChild(1);
         fpsCam = playerTransform.GetChild(2).GetChild(0).GetChild(0);*/
     }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +99,8 @@ public class PickUpSystem : MonoBehaviour
         throwForceBar.setMaxForce(maxforce);
         throwForceBar.setForce(0);
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -221,6 +227,7 @@ public class PickUpSystem : MonoBehaviour
     }
 
 
+
     //throw weapon at enemies
     private void OnCollisionEnter(Collision collision)
     {
@@ -261,6 +268,7 @@ public class PickUpSystem : MonoBehaviour
     }
 
 
+
     /*
      * return true if there is something between th eplayer and the game object
      * 
@@ -289,6 +297,8 @@ public class PickUpSystem : MonoBehaviour
         return wall;
     }
 
+
+
     /* sets playerTransform, weaponContainer and fpsCam 
      * p: player transform
      * w: weaponContainer transform
@@ -300,6 +310,8 @@ public class PickUpSystem : MonoBehaviour
         weaponContainer = w;
         fpsCam = c;
     }
+
+
 
     //get weapon equipment status
     public bool getEquippedValue()

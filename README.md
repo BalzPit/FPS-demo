@@ -17,32 +17,34 @@ Advanced movement features:
 - double-jump
 - wepon recoil moves the player character
   - shooting the ground right after a jump lets the player jump higher (only certain weapons have a strong enough recoil to make this effect noticeable)
-
+- grappling hook (buggy)
 
 BACKLOG:
 
 ----- general -----
 - menus
 - a proper level
+- idle weapon management
 
 
------ gameplay features -----
+----- gameplay -----
 - stun enemies when hit by weapon
 
 
 ----- UI -----
 - show/hide enemy healthbar dynamically
 - damage direction on hit
-- weapon durability meter?
 
 ----- art -----
 
 
 ----- audio -----
 - steps
-- granade explosion
-- shooting sounds
+- explosions
+- gunshots
+- reloads
 - hitmarker sound feedback
+- ambient
 
 
 ----- fixes -----
@@ -51,16 +53,16 @@ BACKLOG:
 - residual movement when landing
 - crouch
 - weapon recoil effects
-- bullet holes not rotating correctly
 - weapons damaging enemies when on sloped floors
 
 
 ----- refactors/reworks -----
-
+- !!weapon pickup system is terrible!!
 - tidy up playermovement script
-- weapon pickup system is kinda terrible
+- spawn/round system
 - grappling hook
 - granade/weapon ammo UI
+
 
 DONE:
 - unified hitmarker system (currently every weapon/ability takes hold of the hitmarker UI element on the playerUI canvas independently, I would like to simply have a general system that shows hitmarkers when player deals damage to anything that takes damage and with any source)
@@ -71,6 +73,8 @@ DONE:
 - enemy and wepon scripts rework to be instantiated at runtime
 - enemy types (same enemy with different health, size, damage)
 - weapon durability
+- projectile trail
+- score system
 
 Out of scope:
 - other weapon types

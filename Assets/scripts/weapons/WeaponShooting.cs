@@ -26,6 +26,7 @@ public class WeaponShooting : Weapon
     Transform playerTransform;
     Shaker cameraShaker;
     public ShakePreset shake_preset;
+    public LineRenderer bulletTrail;
     //Script references
     public WeaponStatus weaponStatusScript;
     public PickUpSystem pickupSys;
@@ -44,6 +45,8 @@ public class WeaponShooting : Weapon
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic, cartridge;
 
+    //audio
+    public AudioSource shot;
 
     //called before start even if script is inactive
     private void Awake()
@@ -119,6 +122,9 @@ public class WeaponShooting : Weapon
 
             //decrease weapon durability depending on wepon
             weaponStatusScript.durabilityDecrease(weaponStatusScript.shootingDecrease);
+
+            //play gunshot sound
+            shot.Play();
         }
     }
 
@@ -162,6 +168,13 @@ public class WeaponShooting : Weapon
                     player.GetComponent<PlayerStatus>().buffDmgMultiplier(0.5f);
                 }
             }
+
+            //graphics
+            //GameObject bulletHole = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(rayHit.normal));
+            GameObject bulletHole = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.FromToRotation(Vector3.forward, rayHit.normal));
+            bulletHole.transform.localScale = new Vector3(4, 4, 4);
+
+            spawnBulletTrail(rayHit.point);
         }
 
         Debug.DrawLine(camTransform.position, rayHit.point, new Color(256, 0, 0), 10f);
@@ -169,8 +182,6 @@ public class WeaponShooting : Weapon
 
         //Graphics
         Instantiate(muzzleFlash, attackPoint.position, attackPoint.transform.rotation);
-        GameObject bulletHole = Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(rayHit.normal));
-        bulletHole.transform.localScale = new Vector3(4, 4, 4);
 
         bulletsLeft--;
         bulletsShot--;
@@ -281,6 +292,21 @@ public class WeaponShooting : Weapon
 
         camRecoil.Fire(recoil_direction, rotation_speed, return_speed, recoil_strength);
     }
+
+
+
+    private void spawnBulletTrail(Vector3 hitPoint)
+    {
+        GameObject bulletTrailEffect = Instantiate(bulletTrail.gameObject, attackPoint.position, Quaternion.identity);
+
+        LineRenderer lineRenderer = bulletTrailEffect.GetComponent<LineRenderer>();
+
+        lineRenderer.SetPosition(0, attackPoint.position);
+        lineRenderer.SetPosition(1, hitPoint);
+
+        Destroy(bulletTrailEffect, 1f);
+    }
+
 
 
     public override void UIAmmoCounterPickUp()
