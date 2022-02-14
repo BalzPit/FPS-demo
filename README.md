@@ -24,7 +24,6 @@ BACKLOG:
 ----- general -----
 - menus
 - a proper level
-- idle weapon management
 
 
 ----- gameplay -----
@@ -40,10 +39,6 @@ BACKLOG:
 
 ----- audio -----
 - steps
-- explosions
-- gunshots
-- reloads
-- hitmarker sound feedback
 - ambient
 
 
@@ -62,6 +57,8 @@ BACKLOG:
 - spawn/round system
 - grappling hook
 - granade/weapon ammo UI
+- make gamemanager and other managers singleton so the references don't need to be retrieved
+- gamemanager weapon lists coudle be reworked
 
 
 DONE:
@@ -75,8 +72,9 @@ DONE:
 - weapon durability
 - projectile trail
 - score system
+- weapon spawning management
 
 Out of scope:
 - other weapon types
 - different enemy types
-- viewmodel animations (probably)
+- viewmodel animations

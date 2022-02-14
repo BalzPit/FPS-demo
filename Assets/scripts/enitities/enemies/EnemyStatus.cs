@@ -30,7 +30,8 @@ public class EnemyStatus : MonoBehaviour
     //gamemanager reference
     GameManager manager;
 
-
+    //AUDIO
+    public AudioSource explosionSound;
 
     // Start is called before the first frame update
     void Start()
@@ -102,9 +103,6 @@ public class EnemyStatus : MonoBehaviour
         Explode();
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        //spawn a random weapon
-        GameObject weapon = FindObjectOfType<GameManager>().randomWeapon(enemyType);
-
         Destroy(gameObject);
 
         //notify gamemanager of death
@@ -140,6 +138,9 @@ public class EnemyStatus : MonoBehaviour
                 hitcollider.GetComponentInParent<PlayerStatus>().TakeDamage(dmg);
             }
         }
+
+        //play explosion sound
+        AudioSource.PlayClipAtPoint(explosionSound.clip, transform.position);
     }
 
 

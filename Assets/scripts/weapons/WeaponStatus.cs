@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponStatus : MonoBehaviour
 {
+    public int weaponTypeID;
+
     float maxDurability;
     public float durability;
     public float shootingDecrease; //amount that determines by how much weapon deteriorates after each shot
@@ -56,7 +58,7 @@ public class WeaponStatus : MonoBehaviour
         //check if weapon broke
         if (durability <= 0)
         {
-            breakWeapon();
+            breakWeapon(0);
         }
         else if (durability < criticalThreshold*maxDurability && !criticalDamage)
         {
@@ -70,7 +72,7 @@ public class WeaponStatus : MonoBehaviour
 
 
     //destroy weapon when it's broken
-    void breakWeapon()
+    public void breakWeapon(int destructionSourceFlag)
     {
         //set slot as empty if weapon was equipped
         if (pickupScript.getEquippedValue() == true)
@@ -78,6 +80,14 @@ public class WeaponStatus : MonoBehaviour
             //drop weapon
             pickupScript.Drop();
             //PickUpSystem.slotFull = false;
+        }
+
+        if(destructionSourceFlag == 0)
+        {
+            //object has been destroyed because of durability decrease, it's not being despawned by the gamemanager
+
+            //notify gamemanager
+            FindObjectOfType<GameManager>().weaponBroken(weaponTypeID, gameObject);
         }
 
         //destroy weapon gameObject

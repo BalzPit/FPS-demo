@@ -10,6 +10,9 @@ public class hitmarker : MonoBehaviour
     public Image hitmarkerImg;
     Color hit_color;
 
+    //AUDIO
+    public AudioSource hitmarkerSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,5 +53,8 @@ public class hitmarker : MonoBehaviour
         hitmarkerImg.color = hit_color;
 
         fade = true;
+
+        //audio
+        hitmarkerSound.Play();
     }
 }

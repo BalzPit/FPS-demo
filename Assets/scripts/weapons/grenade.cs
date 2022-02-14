@@ -17,6 +17,9 @@ public class grenade : MonoBehaviour
     public GameObject explosion_effect;
     public GameObject smoke_effect;
 
+    //AUDIO
+    public AudioSource explosionSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +38,7 @@ public class grenade : MonoBehaviour
 
             if (explosion_timer >= explosion_delay)
             {   
-                //after enough time has passed explode
+                //after enough time has passed, explode
                 Explode();
             }
         }
@@ -82,6 +85,8 @@ public class grenade : MonoBehaviour
         }
         
         Instantiate(explosion_effect, transform.position, Quaternion.identity);
+        AudioSource.PlayClipAtPoint(explosionSound.clip, transform.position);
+
         Destroy(gameObject);
     }
 

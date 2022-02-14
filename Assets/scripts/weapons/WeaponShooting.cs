@@ -47,6 +47,7 @@ public class WeaponShooting : Weapon
 
     //audio
     public AudioSource shot;
+    public AudioSource reload;
 
     //called before start even if script is inactive
     private void Awake()
@@ -106,11 +107,16 @@ public class WeaponShooting : Weapon
         {
             PlayerMovement.sprintLock();
             Reload();
+            reload.Play();
         }
         //reload cancel when sprinting
         if (reloading && Input.GetButtonDown("Sprint"))
         {
             reloadCancel();
+            if (reload.isPlaying)
+            {
+                reload.Stop();
+            }
         }
 
         //shoot
@@ -124,7 +130,8 @@ public class WeaponShooting : Weapon
             weaponStatusScript.durabilityDecrease(weaponStatusScript.shootingDecrease);
 
             //play gunshot sound
-            shot.Play();
+            shot.pitch = 1 + Random.Range(-0.1f, 0.1f);
+            shot.PlayOneShot(shot.clip);
         }
     }
 
