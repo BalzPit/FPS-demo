@@ -11,12 +11,12 @@ public class EnemyStatus : MonoBehaviour
     float explosion_radius = 5;
     float explosion_force = 5;
 
+    public bool isStunned;
+
     public Rigidbody rb;
     public GameObject deathEffect;
     public LayerMask damageable;
     public Collider self;
-
-    //UI
 
     //ENEMY HEALTH
     public HealthBar healthBar;
@@ -42,6 +42,8 @@ public class EnemyStatus : MonoBehaviour
 
         //set delay time to remove healthbar after death
         removeHealthDelay = healthDelay.slide_time;
+
+        isStunned = false;
 
         //notify manager of successfull instantiation
         manager.enemySpawned();
@@ -94,6 +96,28 @@ public class EnemyStatus : MonoBehaviour
         }
 
         return 0;
+    }
+
+
+
+    //sets stunned state to true (AI script will de-activate) and resets it after some time, depending on the damage
+    public void stunEnemy(float dmg)
+    {
+        isStunned = true;
+
+        float stunDuration = 0.03f*dmg;
+        Invoke("unstunEnemy", stunDuration);
+
+        //show particles
+
+        Debug.Log("enemy STUNNED for "+ stunDuration+ "seconds");
+    }
+    //set stunned state to false so AI can activate
+    void unstunEnemy()
+    {
+        isStunned = false;
+
+        //remove particles
     }
 
 

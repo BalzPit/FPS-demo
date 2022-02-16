@@ -17,7 +17,7 @@ Advanced movement features:
 - double-jump
 - wepon recoil moves the player character
   - shooting the ground right after a jump lets the player jump higher (only certain weapons have a strong enough recoil to make this effect noticeable)
-- grappling hook (buggy)
+- grappling hook
 
 BACKLOG:
 
@@ -27,11 +27,8 @@ BACKLOG:
 
 
 ----- gameplay -----
-- stun enemies when hit by weapon
-
 
 ----- UI -----
-- show/hide enemy healthbar dynamically
 - damage direction on hit
 
 ----- art -----
@@ -43,12 +40,10 @@ BACKLOG:
 
 
 ----- fixes -----
-- !!!player model intercepting shots!!!
-- force applied to enemies when hit
 - residual movement when landing
 - crouch
 - weapon recoil effects
-- weapons damaging enemies when on sloped floors
+- weapons damaging enemies when lying on the ground
 
 
 ----- refactors/reworks -----
@@ -73,8 +68,14 @@ DONE:
 - projectile trail
 - score system
 - weapon spawning management
+- stun enemies when hit by weapon
+fixes:
+- player model intercepting shots
+- gravity bug
+- force applied to enemies when hit
 
 Out of scope:
 - other weapon types
 - different enemy types
 - viewmodel animations
+- show/hide enemy healthbar dynamically

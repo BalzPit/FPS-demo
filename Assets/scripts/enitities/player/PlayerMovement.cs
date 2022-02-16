@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     //store xz movement
     Vector3 move;
-    //midair-enabled movement
+    //mid-air-enabled movement
     Vector3 air_move;
     //store player movement direction when leaving the ground
     Vector3 air_movement;
@@ -316,8 +316,12 @@ public class PlayerMovement : MonoBehaviour
         //fall
         if (!isHooked)
         {
-            //all normal
-            velocity.y += gravity * delta;
+            if (!onGround)
+            {
+                //fall normally
+                velocity.y += gravity * delta;
+
+            }
             startHookGravity = velocity.y;
         }
         else
@@ -471,9 +475,9 @@ public class PlayerMovement : MonoBehaviour
 
             if (onGround && velocity.y < 0) //make sure we were falling
             {
-                float vel = -velocity.y/100;
+                float fallVelocity = -velocity.y/100;
                 //we just touched the ground landing from a fall
-                camRecoil.Fire(new Vector3(-1, 0, 0), 5, 1/vel, vel);
+                camRecoil.Fire(new Vector3(-1, 0, 0), 5, 1/ fallVelocity, fallVelocity);
 
                 velocity.y = -8f;
             }

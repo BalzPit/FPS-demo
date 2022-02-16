@@ -17,6 +17,7 @@ public class PickUpSystem : MonoBehaviour
     float throw_force;
     public float maxforce;
     public float throwChargingSpeed;
+    public float stunDurationMultiplier;
     float kept_velocity_rate = 0.2f;
     public float minDropForwardForce, dropUpwardForce;
     public float pickUpRange;
@@ -32,7 +33,6 @@ public class PickUpSystem : MonoBehaviour
     RaycastHit rayHit;
 
     Collider weaponCollider;
-    public LayerMask damageable;
 
     //UI 
     UIManager uiManager;
@@ -251,6 +251,9 @@ public class PickUpSystem : MonoBehaviour
                 //bounce back and loose velocity
                 rb.velocity = kept_velocity_rate * new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
 
+                //stun enemy
+                hitObject.GetComponent<EnemyStatus>().stunEnemy(stunDurationMultiplier*dmg);
+
                 //show hitmarker
                 if (dmg > 0)
                 {
@@ -278,7 +281,6 @@ public class PickUpSystem : MonoBehaviour
     {
         bool wall = true;
 
-        //bool wall = Physics.Raycast(transform.position, transform.position - weaponContainer.position, distance, damageable);
         bool hit = Physics.Raycast(transform.position, playerTransform.position - transform.position , out rayHit ,distance);
 
         if(!hit)

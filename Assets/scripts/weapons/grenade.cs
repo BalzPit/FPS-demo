@@ -66,17 +66,21 @@ public class grenade : MonoBehaviour
 
         foreach(var hitcollider in hitColliders)
         {
-            //always do a constant portion of the dmg (granade dmg/4) and add more depending on distance
+            //always do a constant dmg (granade dmg/4) and add more depending on distance
             float dmg = granade_dmg/4 + granade_dmg * (1 - (transform.position - hitcollider.transform.position).magnitude / explosion_radius);
 
             if (hitcollider.tag == "Enemy")
             {
                 Rigidbody hitRigidBody = hitcollider.GetComponent<Rigidbody>();
-                hitRigidBody.AddExplosionForce(100 * explosion_force, transform.position, explosion_radius);//, 0,ForceMode.Impulse);
+                //hitRigidBody.AddExplosionForce(100 * explosion_force, transform.position, explosion_radius);//, 0,ForceMode.Impulse);
+                hitRigidBody.AddExplosionForce(explosion_force, transform.position, explosion_radius, 0,ForceMode.Impulse);
 
                 float damage_result = hitcollider.GetComponent<EnemyStatus>().TakeDamage(dmg, hitRigidBody.position-transform.position ,hitRigidBody.position);
 
                 ab.showHitMarker(damage_result);
+
+                //stun enemy
+                hitcollider.GetComponent<EnemyStatus>().stunEnemy(dmg);
             }
             else if(hitcollider.tag == "Player")
             {

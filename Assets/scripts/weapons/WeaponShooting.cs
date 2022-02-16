@@ -151,7 +151,7 @@ public class WeaponShooting : Weapon
         Vector3 direction = camTransform.forward + new Vector3(x, y, 0);
 
         //RayCast
-        if (Physics.Raycast(camTransform.position, direction, out rayHit, range))//, damageable))//, whatIsEnemy))
+        if (Physics.Raycast(camTransform.position, direction, out rayHit, range, damageable))//, damageable))))
         {
             //Debug.Log(rayhit.collider.name);
             Debug.Log(rayHit.collider.name);

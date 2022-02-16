@@ -38,29 +38,34 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        //check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
-
-        if (playerInSightRange)
+        //AI activates only if the enemy is not stunned
+        if (!enemyStatus.isStunned)
         {
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
+            //check for sight and attack range
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerMask);
 
-            if (playerInAttackRange)
+            if (playerInSightRange)
             {
-                //attack the player
-                attack();
+                playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
+
+                if (playerInAttackRange)
+                {
+                    //attack the player
+                    attack();
+                }
+                else
+                {
+                    //player is in sight range but not in attack range, chase
+                    chase();
+                }
             }
             else
             {
-                //player is in sight range but not in attack range, chase
-                chase();
+                //player is not in sight range, normal patrol behaviour
+                patrol();
             }
         }
-        else
-        {
-            //player is not in sight range, normal patrol behaviour
-            patrol();
-        }
+        //do nothing if enemy was stunned
     }
 
 

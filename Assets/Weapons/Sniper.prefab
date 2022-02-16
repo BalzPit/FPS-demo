@@ -148,13 +148,11 @@ MonoBehaviour:
   local_rotation: {x: -1.557, y: 2.557, z: -1.97}
   maxforce: 70
   throwChargingSpeed: 50
+  stunDurationMultiplier: 3
   minDropForwardForce: 20
   dropUpwardForce: 1
   pickUpRange: 3
   equipped: 0
-  damageable:
-    serializedVersion: 2
-    m_Bits: 1024
   weaponCrosshair: {fileID: 21300000, guid: 366d765188c7bf344ba3057c280ac0b5, type: 3}
   defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
   weaponStatusScript: {fileID: 114986572365710000}
@@ -171,10 +169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
-  damage: 100
+  damage: 150
   magazineSize: 5
   bulletsPerTap: 1
-  timeBetweenShooting: 1
+  timeBetweenShooting: 1.5
   spread: 0.01
   range: 100
   reloadTime: 3
@@ -192,7 +190,7 @@ MonoBehaviour:
   attackPoint: {fileID: 8126890605971761427}
   damageable:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1536
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980,
