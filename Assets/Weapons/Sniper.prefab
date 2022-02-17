@@ -156,6 +156,10 @@ MonoBehaviour:
   weaponCrosshair: {fileID: 21300000, guid: 366d765188c7bf344ba3057c280ac0b5, type: 3}
   defaultCrosshair: {fileID: 21300000, guid: 333708ae0f94a9b488fc487d0100e2fa, type: 3}
   weaponStatusScript: {fileID: 114986572365710000}
+  crashSounds:
+  - {fileID: 8300000, guid: 5de45d874f613ab42bb7964d80f351bc, type: 3}
+  - {fileID: 8300000, guid: 43a7230b049a5bb4b9fd97492940fc57, type: 3}
+  - {fileID: 8300000, guid: 060182f717139e14699b6b32d3d15f61, type: 3}
 --- !u!114 &889839113385623335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,12 +216,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponTypeID: 2
   durability: 100
-  shootingDecrease: 5
+  shootingDecrease: 10
   pickupScript: {fileID: 8126890606643664340}
   breakEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
   smokeTrail: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
   smokeTransform: {fileID: 7315134437326948978}
+  audioSource: {fileID: 9013740917892736589}
+  durabilityDecreaseClip: {fileID: 8300000, guid: 5489eea5366f0954c90f4d0b38b31196,
+    type: 3}
+  weaponDestructionClip: {fileID: 8300000, guid: bd1a6b1d72c07f94db51b396651da3de,
+    type: 3}
 --- !u!82 &9013740917892736589
 AudioSource:
   m_ObjectHideFlags: 0

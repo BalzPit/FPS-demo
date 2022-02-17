@@ -18,7 +18,8 @@ public class grenade : MonoBehaviour
     public GameObject smoke_effect;
 
     //AUDIO
-    public AudioSource explosionSound;
+    public AudioClip[] bounceSound;
+    public AudioClip explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +56,10 @@ public class grenade : MonoBehaviour
             //decrease grenade velocity on impact to make it more predictable
             rb.velocity *= 0.5f;
         }
+
+        //play random bounce sound
+        int randomIndex = Random.Range(0, bounceSound.Length);
+        AudioSource.PlayClipAtPoint(bounceSound[randomIndex], transform.position);
     }
 
     void Explode()
@@ -89,7 +94,7 @@ public class grenade : MonoBehaviour
         }
         
         Instantiate(explosion_effect, transform.position, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(explosionSound.clip, transform.position);
+        AudioSource.PlayClipAtPoint(explosion, transform.position);
 
         Destroy(gameObject);
     }

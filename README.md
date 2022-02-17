@@ -27,6 +27,7 @@ BACKLOG:
 
 
 ----- gameplay -----
+- weapon throw interruption when sprinting
 
 ----- UI -----
 - damage direction on hit
@@ -69,7 +70,8 @@ DONE:
 - score system
 - weapon spawning management
 - stun enemies when hit by weapon
-fixes:
+- weapon throw interruption
+fixed:
 - player model intercepting shots
 - gravity bug
 - force applied to enemies when hit

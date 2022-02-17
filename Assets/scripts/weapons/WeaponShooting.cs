@@ -129,6 +129,9 @@ public class WeaponShooting : Weapon
             //decrease weapon durability depending on wepon
             weaponStatusScript.durabilityDecrease(weaponStatusScript.shootingDecrease);
 
+            //interrupt weapon drop
+            pickupSys.interruptDrop();
+
             //play gunshot sound
             shot.pitch = 1 + Random.Range(-0.1f, 0.1f);
             shot.PlayOneShot(shot.clip);
@@ -223,6 +226,9 @@ public class WeaponShooting : Weapon
         reloading = true;
         //reload position
         transform.localRotation = Quaternion.Euler(new Vector3(-40, -10, 0));
+
+        //interrupt weapon drop
+        pickupSys.interruptDrop();
 
         //UI
         ammoCountText.text = "RELOADING";

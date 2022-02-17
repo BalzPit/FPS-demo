@@ -119,7 +119,11 @@ MonoBehaviour:
     type: 3}
   smoke_effect: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8,
     type: 3}
-  explosionSound: {fileID: 82463912392356148}
+  bounceSound:
+  - {fileID: 8300000, guid: ab7826ffb77796b4d9215f5924e69fe9, type: 3}
+  - {fileID: 8300000, guid: fdbdcf91386b102499f9bee961b5874e, type: 3}
+  granadeShot: {fileID: 8300000, guid: 2adcadca12054a34c9584d45ff66330b, type: 3}
+  explosion: {fileID: 8300000, guid: 6f333df045754d04f8678b10a5352c95, type: 3}
 --- !u!54 &54069271420322224
 Rigidbody:
   m_ObjectHideFlags: 0

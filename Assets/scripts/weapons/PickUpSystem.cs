@@ -25,6 +25,9 @@ public class PickUpSystem : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
+    bool dropBlocked;
+    bool chargingThrow;
+
     //calculate velocity of weapon
     Vector3 prev_pos;
     Vector3 current_pos;
@@ -48,7 +51,8 @@ public class PickUpSystem : MonoBehaviour
     //Script references
     public WeaponStatus weaponStatusScript;
 
-
+    //AUDIO
+    public AudioClip[] crashSounds;
 
     //called before start even if script is inactive
     private void Awake()
@@ -78,6 +82,9 @@ public class PickUpSystem : MonoBehaviour
         current_pos = transform.position;
 
         throw_force = minDropForwardForce;
+
+        dropBlocked = false;
+        chargingThrow = false;
 
         //initial setup
         if (!equipped)
@@ -118,7 +125,7 @@ public class PickUpSystem : MonoBehaviour
         }
 
         //drop weapon
-        if (equipped)
+        if (equipped && !dropBlocked)
         {
             //update positions
             prev_pos = current_pos;
@@ -126,6 +133,7 @@ public class PickUpSystem : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Mouse1))
             {
+                chargingThrow = true;
                 if (throw_force < maxforce)
                 {
                     //throw force UI
@@ -154,6 +162,12 @@ public class PickUpSystem : MonoBehaviour
 
                 //calculate current velocity
                 velocity = (current_pos - prev_pos) / Time.deltaTime;
+            }
+
+            //unlock drop capability
+            if(dropBlocked && Input.GetKeyUp(KeyCode.Mouse1))
+            {
+                dropBlocked = false;
             }
         }
     }
@@ -197,6 +211,7 @@ public class PickUpSystem : MonoBehaviour
 
         equipped = false;
         slotFull = false;
+        chargingThrow = false;
 
         //gun not a child of weaponcontainer anymore
         transform.SetParent(null);
@@ -252,7 +267,7 @@ public class PickUpSystem : MonoBehaviour
                 rb.velocity = kept_velocity_rate * new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
 
                 //stun enemy
-                hitObject.GetComponent<EnemyStatus>().stunEnemy(stunDurationMultiplier*dmg);
+                hitObject.GetComponent<EnemyStatus>().stunEnemy(stunDurationMultiplier * dmg);
 
                 //show hitmarker
                 if (dmg > 0)
@@ -266,6 +281,12 @@ public class PickUpSystem : MonoBehaviour
                     hitmrkr.showHitMarker();
                     deathMarker.showHitMarker();
                 }
+            }
+            if (hitObject.tag != "Player")
+            {
+                //play random crash sound
+                int randomIndex = Random.Range(0, crashSounds.Length);
+                AudioSource.PlayClipAtPoint(crashSounds[randomIndex], transform.position);
             }
         }
     }
@@ -319,5 +340,18 @@ public class PickUpSystem : MonoBehaviour
     public bool getEquippedValue()
     {
         return equipped;
+    }
+
+    //resets throw force to 0
+    public void interruptDrop()
+    {
+        if (chargingThrow)
+        { 
+            dropBlocked = true;
+
+            //hide throw bar
+            throwForceBar.hideBar();
+        }
+        throw_force = 0;
     }
 }

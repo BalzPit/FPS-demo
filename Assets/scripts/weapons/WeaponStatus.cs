@@ -26,6 +26,10 @@ public class WeaponStatus : MonoBehaviour
     //misc
     Vector3 effectTransformScaler = new Vector3(0.25f, 0.25f, 0.25f);
 
+    //AUDIO
+    public AudioClip durabilityDecreaseClip;
+    public AudioClip weaponDestructionClip;
+
     private void Start()
     {
         //set the initial value for durability
@@ -66,6 +70,9 @@ public class WeaponStatus : MonoBehaviour
             criticalDamage = true;
             GameObject smoke = Instantiate(smokeTrail, smokeTransform.position, Quaternion.identity, smokeTransform);
             smoke.transform.localScale = effectTransformScaler; //scale smoke effect
+
+            //play siund effect
+            AudioSource.PlayClipAtPoint(durabilityDecreaseClip, transform.position);
         }
     }
 
@@ -88,6 +95,8 @@ public class WeaponStatus : MonoBehaviour
 
             //notify gamemanager
             FindObjectOfType<GameManager>().weaponBroken(weaponTypeID, gameObject);
+
+            AudioSource.PlayClipAtPoint(weaponDestructionClip, transform.position);
         }
 
         //destroy weapon gameObject

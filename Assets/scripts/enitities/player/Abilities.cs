@@ -31,6 +31,10 @@ public class Abilities : MonoBehaviour
     hitmarker hitmrkr;
     hitmarker deathMarker;
 
+    //AUDIO
+    public AudioClip granadeShot;
+    public AudioSource playerSource;
+
     private void Awake()
     {
         //UI
@@ -125,6 +129,9 @@ public class Abilities : MonoBehaviour
                 granadeUI.useSecondStack();
             }
             granadeUI.resetSlider(granade_usages);
+
+            //Play audio clip
+            playerSource.PlayOneShot(granadeShot);
         }
     }
 
