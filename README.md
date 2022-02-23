@@ -1,12 +1,12 @@
 The purpose of this project is to develop a small first-person shooter demo as a result of my first experiences and experiments with the Unity game engine.
-The result is not supposed to be a fully fledged, balanced or well designed game, because game design is not a field I have experience of, but to merely be a demo of gameplay features that is hopefully somewhat playable as well (I'm trying to make things that make sense, also taking this as a small game design excercise).
+The result is not supposed to be a fully fledged, balanced or well designed game, because game design is not a field I have experience of, but to merely be a demo of gameplay features that is hopefully somewhat playable as well.
 Since it's my first time with Unity and making a game in general, I had to follow some tutorials at the start to understand how things work so obviously not everything here was 100% my creation (e.g.: aiming and walking, weaponshooting script, weapon pickup system), but pretty much every script was changed with added features (double jump, crouch, wallcheck on weapon pickup and weapon throwing, etc).
 
 In this game, the player is able to perform the following actions:
 - walk and look around
 - jump 
 - crouch
-- throw granades (granade energy refills like in Destiny)
+- throw granades (granades refill automatically)
 - pick up weapons
 - shoot/reload weapons
 - drop/throw weapons
@@ -22,12 +22,10 @@ Advanced movement features:
 BACKLOG:
 
 ----- general -----
-- menus
 - a proper level
 
-
 ----- gameplay -----
-- weapon throw interruption when sprinting
+- grappling hook visuals
 
 ----- UI -----
 - damage direction on hit
@@ -38,6 +36,8 @@ BACKLOG:
 ----- audio -----
 - steps
 - ambient
+- music
+- AudioManager
 
 
 ----- fixes -----
@@ -71,6 +71,7 @@ DONE:
 - weapon spawning management
 - stun enemies when hit by weapon
 - weapon throw interruption
+- main/pause menu
 fixed:
 - player model intercepting shots
 - gravity bug
@@ -79,5 +80,6 @@ fixed:
 Out of scope:
 - other weapon types
 - different enemy types
-- viewmodel animations
+- basic viewmodel animations
 - show/hide enemy healthbar dynamically
+- audio mix

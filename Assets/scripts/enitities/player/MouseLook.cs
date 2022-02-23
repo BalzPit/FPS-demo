@@ -82,18 +82,4 @@ public class MouseLook : MonoBehaviour
             }
         }
     }
-
-    /*
-     * rec_dir -> x moves horizontally, y moves vertically
-     *
-    public static void Recoil(float rec_strength, Vector3 rec_dir, Transform camera)
-    {
-        //random variation to be added to recoil direction vector
-        float r = Random.Range(rec_strength, rec_strength);
-
-        rec_dir += new Vector3(r, r, 0);
-
-        //playerBody.Rotate(Vector3.up * rec_dir.x);
-        //camera.localRotation = Quaternion.Euler()
-    }*/
 }

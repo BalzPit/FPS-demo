@@ -230,9 +230,6 @@ public class WeaponShooting : Weapon
         //interrupt weapon drop
         pickupSys.interruptDrop();
 
-        //UI
-        ammoCountText.text = "RELOADING";
-
         Invoke("ReloadFinished", reloadTime);
     }
 

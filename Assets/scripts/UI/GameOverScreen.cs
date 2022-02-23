@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
+    int menuSceneIndex = 0;
+
+
     void Start()
     {
         gameObject.SetActive(false);
@@ -17,5 +20,11 @@ public class GameOverScreen : MonoBehaviour
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(menuSceneIndex);
     }
 }
