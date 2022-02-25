@@ -25,6 +25,8 @@ public class Abilities : MonoBehaviour
     public float maxHookTime;
     public float minHookDistance;
     public float hookPullForce;
+    public Vector3 hookPosition;
+    LineRenderer lineRenderer;
 
     //UI
     UIManager uiManager;
@@ -37,6 +39,15 @@ public class Abilities : MonoBehaviour
 
     private void Awake()
     {
+        //initialize line renderer object
+        lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+        lineRenderer.startColor = Color.black;
+        lineRenderer.endColor = Color.black;
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
+        lineRenderer.positionCount = 2;
+        lineRenderer.useWorldSpace = true;
+
         //UI
         uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         //get ui elements
@@ -60,18 +71,20 @@ public class Abilities : MonoBehaviour
     {
         delta = Time.deltaTime;
 
-        if (Input.GetButtonDown("granade"))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             throwGranade();
         }
 
         //if (Input.GetButtonDown("Fire2"))
-        if(Input.GetKeyUp(KeyCode.Q))
+        if(Input.GetKeyUp(KeyCode.C))
         {
             //grappling hook
             if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange))
             {
-                pm.grapplingHook(rayHit.point, maxHookTime, minHookDistance, hookPullForce, hookRange);
+                hookPosition = rayHit.point;
+
+                pm.grapplingHook(hookPosition, maxHookTime, minHookDistance, hookPullForce, hookRange);
             }
         }
 
@@ -98,6 +111,14 @@ public class Abilities : MonoBehaviour
                     granadeUI.chargeSecondStack();
                 }
             }
+        }
+
+        //grappling hook "visuals"
+        if (pm.isHooked)
+        {
+            //draw line between player and hook position
+            lineRenderer.SetPosition(0, transform.position); //starting point of the line
+            lineRenderer.SetPosition(1, hookPosition); //end point of the line
         }
     }
 
@@ -150,4 +171,15 @@ public class Abilities : MonoBehaviour
             deathMarker.showHitMarker();
         }
     }
+
+
+
+    //remove hook visuals
+    public void unHook()
+    {
+        //draw line with same point to hide it
+        lineRenderer.SetPosition(0, hookPosition); //starting point of the line
+        lineRenderer.SetPosition(1, hookPosition); //end point of the line
+    }
+
 }

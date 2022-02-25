@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     //grappling hook
     Vector3 hookPosition;
     Vector3 hookPullVector;
-    bool isHooked;
+    public bool isHooked;
     float maxHookDistance;
     float hookTime;
     float startHookGravity;
@@ -86,6 +86,14 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f; //radius of ground-checking sphere
     public LayerMask groundMask;
+
+    //AUDIO
+    public AudioSource stepsAudio;
+    public AudioClip[] steps;
+    public AudioSource jetpack;
+
+    //SCRIPT REFERENCES
+    public Abilities playerAbilities;
 
     private void Start()
     {
@@ -210,6 +218,24 @@ public class PlayerMovement : MonoBehaviour
                 }
                 //reduce the residual speed
                 residualSpeed -= delta * 5;
+
+                //steps AUDIO
+                if(move != Vector3.zero && !stepsAudio.isPlaying)
+                {
+                    //play sprint or walk footsteps sounds
+                    if (sprinting)
+                    {
+                        stepsAudio.clip = steps[1];
+                        stepsAudio.pitch = 1 + Random.Range(-0.2f, 0.2f);
+                        stepsAudio.Play();
+                    }
+                    else
+                    {
+                        stepsAudio.clip = steps[0];
+                        stepsAudio.pitch = 1 + Random.Range(-0.2f, 0.2f);
+                        stepsAudio.Play();
+                    }
+                }
             }
             else
             {
@@ -277,9 +303,14 @@ public class PlayerMovement : MonoBehaviour
         {
             //add upward vertical velocity (see velocity formula to reach height jumpH)
             velocity.y = Mathf.Sqrt(jumpH * -2f * gravity);
+
+            //flinch camera
+            camRecoil.Fire(new Vector3(-1, 0, 0), 5, 10, 0.2f);//HARDCODED
         }
         else if (Input.GetButtonDown("Jump") && !onGround && !isHooked && doubleJump)
         {
+            //DOUBLE JUMP
+
             velocity.y = Mathf.Sqrt(jumpH * -2f * gravity);
             doubleJump = false;
 
@@ -292,14 +323,23 @@ public class PlayerMovement : MonoBehaviour
             float angle_diff_rate = 1 - ( Vector3.Angle(new_direction, air_movement)/180 ); //the higher the angle difference, the smaller the rate
 
             //calculate direction of sum of vectors and re-apply original magnitude so no speed is gained when double jumping
-            air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * air_movement_mag * angle_diff_rate; 
+            air_movement = (air_movement + new_direction * doublejump_newdir_weight).normalized * air_movement_mag * angle_diff_rate;
+
+            //flinch camera
+            camRecoil.Fire(new Vector3(-1, 0, 0), 5, 10, 0.2f);//HARDCODED
+
+            //play audio
+            jetpack.pitch = 1 + Random.Range(-0.3f, 0.3f);
+            jetpack.Play();
         }
         else if (Input.GetButtonDown("Jump") && !onGround && isHooked)
         {
-            //double jump already used while hooked, unhook
+            //double jump already used while hooked, UNHOOK
             isHooked = false;
             //keep hook vertical momentum
             velocity.y = verticalMomentum;
+
+            playerAbilities.unHook();
         }
         
         //reomve RECOIL force
@@ -336,19 +376,21 @@ public class PlayerMovement : MonoBehaviour
         if (isHooked)
         {
             hookPullVector = hookPosition - transform.position;
-            //if player is close enough to hook or enough time passed, un-hook
+            //if player is close enough to hook or enough time passed, UN-HOOK
             if (hookTime >= maxHookTime || hookPullVector.magnitude <= minHookDistance)
             {
                 isHooked = false;
                 hookTime = 0;
                 //keep hook vertical momentum
                 velocity.y = verticalMomentum;
+
+                playerAbilities.unHook();
             }
             else
             {
                 //normalize pull vector
                 hookPullVector = hookPullVector.normalized;
-                //move towards the hook with a pull strength that depends on the vicinity to the hook
+                //move towards the hook with a pull strength that depends on the proximity to the hook
                 controller.Move(hookPullVector * (hookPullForce*(hookPullVector.magnitude/maxHookDistance)) * delta);
                 hookTime += delta;
             }

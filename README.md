@@ -25,7 +25,6 @@ BACKLOG:
 - a proper level
 
 ----- gameplay -----
-- grappling hook visuals
 
 ----- UI -----
 - damage direction on hit
@@ -34,8 +33,6 @@ BACKLOG:
 
 
 ----- audio -----
-- steps
-- ambient
 - music
 - AudioManager
 
@@ -61,7 +58,7 @@ DONE:
 - unified hitmarker system (currently every weapon/ability takes hold of the hitmarker UI element on the playerUI canvas independently, I would like to simply have a general system that shows hitmarkers when player deals damage to anything that takes damage and with any source)
 - UI Manager
 - granade hitmarker
-- grapple hook (cool when it works but it's too buggy, doing it right is probably out of scope for this project)
+- grapple hook (cool when it works but a bit too buggy, doing it right would probably take a lot more time)
 - enemy spawn points and system (very barebones)
 - enemy and wepon scripts rework to be instantiated at runtime
 - enemy types (same enemy with different health, size, damage)
