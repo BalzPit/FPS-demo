@@ -4,6 +4,8 @@ The purpose of this project is to develop a small first-person shooter demo as a
 The result is not supposed to be a fully fledged, balanced or well designed game, because game design is not a field I have experience of, but to merely be a demo of gameplay features that is hopefully somewhat playable as well.
 Since it's my first time with Unity and making a game in general, I had to follow some tutorials at the start to understand how things work so obviously not everything here was 100% my creation (e.g.: aiming and walking, weaponshooting script, weapon pickup system), but pretty much every script was changed with added features (double jump, crouch, wallcheck on weapon pickup and weapon throwing, etc).
 
+To check out the code, go to https://github.com/BalzPit/FPS-demo/tree/master/Assets/scripts
+
 In this game, the player is able to perform the following actions:
 
 - walk and look around
