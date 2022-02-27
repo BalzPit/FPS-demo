@@ -109,6 +109,9 @@ MonoBehaviour:
   minHookDistance: 3
   hookPullForce: 500
   hookPosition: {x: 0, y: 0, z: 0}
+  hookLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   granadeShot: {fileID: 8300000, guid: 313b04e6d56accb4f8d29f72417f2e1c, type: 3}
   playerSource: {fileID: 8985431975851150661}
 --- !u!114 &4220752793107433357

@@ -35,7 +35,7 @@ public abstract class Weapon : MonoBehaviour
     /*
      * randomly move camera position according to recoil direction and strength
      */
-    public abstract void weaponRecoil(float recoil_strength, Vector3 ercoil_direction);
+    public abstract void weaponRecoil(float recoil_strength, Vector3 recoil_direction, float x, float y);
 
     /*
      * Change UI to display the equipped weapon's correct ammo count

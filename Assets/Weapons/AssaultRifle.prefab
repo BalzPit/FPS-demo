@@ -137,13 +137,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5621359808033639537}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e788474b326d464793365b032d32c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
-  damage: 15
+  damage: 20
   magazineSize: 30
   bulletsPerTap: 1
   timeBetweenShooting: 0.09
@@ -153,9 +153,9 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   recoil: 0.1
   allowButtonHold: 1
-  recoil_direction: {x: 3, y: 0, z: 0}
-  rotation_speed: 20
-  return_speed: 16
+  recoil_direction: {x: 1, y: 0, z: 0}
+  rotation_speed: 7
+  return_speed: 5
   shake_preset: {fileID: 11400000, guid: 1f8d194d03868b646a88dbc47f5f929a, type: 2}
   bulletTrail: {fileID: 120648884187509030, guid: d2ec70c814159504cb3e12e99b00b151,
     type: 3}
@@ -192,7 +192,6 @@ MonoBehaviour:
     type: 3}
   smokeTrail: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
   smokeTransform: {fileID: 7718412053435226838}
-  audioSource: {fileID: 1405301219196230238}
   durabilityDecreaseClip: {fileID: 8300000, guid: 5489eea5366f0954c90f4d0b38b31196,
     type: 3}
   weaponDestructionClip: {fileID: 8300000, guid: bd1a6b1d72c07f94db51b396651da3de,

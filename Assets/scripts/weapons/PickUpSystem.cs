@@ -18,6 +18,7 @@ public class PickUpSystem : MonoBehaviour
     public float maxforce;
     public float throwChargingSpeed;
     public float stunDurationMultiplier;
+    float weaponDurabilityDmgMultiplier = 0.8f;
     float kept_velocity_rate = 0.2f;
     public float minDropForwardForce, dropUpwardForce;
     public float pickUpRange;
@@ -102,9 +103,9 @@ public class PickUpSystem : MonoBehaviour
             slotFull = true;
         }
 
-        throwForceBar.setMinForce(minDropForwardForce);
-        throwForceBar.setMaxForce(maxforce);
-        throwForceBar.setForce(0);
+        //throwForceBar.setMinForce(minDropForwardForce);
+        //throwForceBar.setMaxForce(maxforce);
+        //throwForceBar.setForce(0);
     }
 
 
@@ -192,6 +193,9 @@ public class PickUpSystem : MonoBehaviour
         gunScript.enabled = true;
 
         //UI
+        throwForceBar.setMinForce(minDropForwardForce);
+        throwForceBar.setMaxForce(maxforce);
+        throwForceBar.setForce(0);
 
         //display ammo count
         gunScript.UIAmmoCounterPickUp();
@@ -259,15 +263,14 @@ public class PickUpSystem : MonoBehaviour
             {
                 //damage enemy
                 dmg = hitObject.GetComponent<EnemyStatus>().TakeDamage(dmg, new Vector3(1, 1, 1), collision.GetContact(0).point);
+                //stun enemy
+                hitObject.GetComponent<EnemyStatus>().stunEnemy(stunDurationMultiplier * dmg);
 
                 //decrease weapon durability
-                weaponStatusScript.durabilityDecrease(dmg);
+                weaponStatusScript.durabilityDecrease(weaponDurabilityDmgMultiplier * dmg);
 
                 //bounce back and loose velocity
                 rb.velocity = kept_velocity_rate * new Vector3(-rb.velocity.x, -rb.velocity.y, -rb.velocity.z);
-
-                //stun enemy
-                hitObject.GetComponent<EnemyStatus>().stunEnemy(stunDurationMultiplier * dmg);
 
                 //show hitmarker
                 if (dmg > 0)
@@ -294,7 +297,7 @@ public class PickUpSystem : MonoBehaviour
 
 
     /*
-     * return true if there is something between th eplayer and the game object
+     * return true if there is something between the player and the game object
      * 
      * distance: the distance from the palyer to the object that's interacting
      */
@@ -302,7 +305,7 @@ public class PickUpSystem : MonoBehaviour
     {
         bool wall = true;
 
-        bool hit = Physics.Raycast(transform.position, playerTransform.position - transform.position , out rayHit ,distance);
+        bool hit = Physics.Raycast(transform.position, fpsCam.position - transform.position , out rayHit ,distance);
 
         if(!hit)
         {

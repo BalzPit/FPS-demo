@@ -27,6 +27,7 @@ public class Abilities : MonoBehaviour
     public float hookPullForce;
     public Vector3 hookPosition;
     LineRenderer lineRenderer;
+    public LayerMask hookLayerMask;
 
     //UI
     UIManager uiManager;
@@ -80,7 +81,7 @@ public class Abilities : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.C))
         {
             //grappling hook
-            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange))
+            if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out rayHit, hookRange, hookLayerMask))
             {
                 hookPosition = rayHit.point;
 

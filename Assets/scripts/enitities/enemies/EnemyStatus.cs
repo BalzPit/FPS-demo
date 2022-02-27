@@ -30,6 +30,9 @@ public class EnemyStatus : MonoBehaviour
     //gamemanager reference
     GameManager manager;
 
+    //visuals
+    public ParticleSystem stunParticles;
+
     //AUDIO
     public AudioSource explosionSound;
 
@@ -108,16 +111,21 @@ public class EnemyStatus : MonoBehaviour
         float stunDuration = 0.03f*dmg;
         Invoke("unstunEnemy", stunDuration);
 
-        //show particles
+        //show visuals
+        stunParticles.Play();
 
         Debug.Log("enemy STUNNED for "+ stunDuration+ "seconds");
     }
+
+
+
     //set stunned state to false so AI can activate
     void unstunEnemy()
     {
         isStunned = false;
 
-        //remove particles
+        //remove visuals
+        stunParticles.Stop();
     }
 
 

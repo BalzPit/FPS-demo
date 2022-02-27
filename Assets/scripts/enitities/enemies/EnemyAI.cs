@@ -26,6 +26,8 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     bool playerInSightRange, playerInAttackRange;
 
+
+
     private void Awake()
     {
         player = GameObject.Find("Runner").transform;
@@ -69,6 +71,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 
+
     private void patrol()
     {
         if (!walkpointSet)
@@ -90,11 +93,15 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
+
     private void chase()
     {
         //just run straight towards the player
         agent.SetDestination(player.position);
     }
+
+
 
     private void attack()
     {
@@ -112,6 +119,8 @@ public class EnemyAI : MonoBehaviour
             Invoke(nameof(resetAttack), timeBetweenAttacks);
         }
     }
+
+
 
     private void searchWalkPoint()
     {

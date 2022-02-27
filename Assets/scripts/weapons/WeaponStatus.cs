@@ -96,7 +96,7 @@ public class WeaponStatus : MonoBehaviour
             //notify gamemanager
             FindObjectOfType<GameManager>().weaponBroken(weaponTypeID, gameObject);
 
-            AudioSource.PlayClipAtPoint(weaponDestructionClip, transform.position);
+            AudioSource.PlayClipAtPoint(weaponDestructionClip, transform.position, 0.7f);
         }
 
         //destroy weapon gameObject

@@ -329,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
             camRecoil.Fire(new Vector3(-1, 0, 0), 5, 10, 0.2f);//HARDCODED
 
             //play audio
-            jetpack.pitch = 1 + Random.Range(-0.3f, 0.3f);
+            jetpack.pitch = 1 + Random.Range(-0.4f, 0f);
             jetpack.Play();
         }
         else if (Input.GetButtonDown("Jump") && !onGround && isHooked)

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 470533475208723964}
   - component: {fileID: 54069271420322224}
   - component: {fileID: 82463912392356148}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,6 @@ MonoBehaviour:
   bounceSound:
   - {fileID: 8300000, guid: ab7826ffb77796b4d9215f5924e69fe9, type: 3}
   - {fileID: 8300000, guid: fdbdcf91386b102499f9bee961b5874e, type: 3}
-  granadeShot: {fileID: 8300000, guid: 2adcadca12054a34c9584d45ff66330b, type: 3}
   explosion: {fileID: 8300000, guid: 6f333df045754d04f8678b10a5352c95, type: 3}
 --- !u!54 &54069271420322224
 Rigidbody:
@@ -245,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1486905944138471292}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: effectsPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}

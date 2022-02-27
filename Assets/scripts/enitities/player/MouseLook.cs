@@ -4,7 +4,7 @@ public class MouseLook : MonoBehaviour
 {
     float delta;
 
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity;
 
     float xRotation = 0f;
 
@@ -25,6 +25,7 @@ public class MouseLook : MonoBehaviour
     {
         fpsCamera = Camera.main;
         //hide cursor during gameplay
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         //set initial fov

@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     //enemy spawns
     int enemyCount = 0;
     int maxEnemyCount = 0;
+    int maxPossibleEnemies = 40;
     bool spawning;
 
     //weapon spawns
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
         abilitiesScript.enabled = false;
 
         Cursor.lockState = CursorLockMode.None; //makes menu interactable
+        Cursor.visible = true;
         uiManager.gameOver(points);
 
         //stop game
@@ -101,12 +103,15 @@ public class GameManager : MonoBehaviour
     {
 
         //increase number of enemies in this round
-        maxEnemyCount += 5;
+        if(maxEnemyCount < maxPossibleEnemies)
+        {
+            maxEnemyCount += 5;
+        }
 
         //spawn maxEnemyCount enemies
         for (int i = 0; i < maxEnemyCount; i++)
         {
-            int spawnIndex = Random.Range(0, 4);
+            int spawnIndex = Random.Range(0, 5);
             spawnEnemy(this.gameObject.transform.GetChild(spawnIndex));
         }
     }
@@ -149,7 +154,7 @@ public class GameManager : MonoBehaviour
 
         GameObject weapon, weaponToDestroy;
 
-        int r = Random.Range(0, enemyType + 1);
+        int r = Random.Range(0, enemyType + 2);
 
         //MANAGE WEAPONS ON THE GROUND AND DESTROY OLD ONES IF NECESSARY
         //This whole system sucks

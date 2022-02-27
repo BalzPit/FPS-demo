@@ -213,7 +213,7 @@ public class WeaponShooting : Weapon
             cameraShaker.Shake(shake_preset);
 
             //recoil
-            weaponRecoil(recoil, direction.normalized);
+            weaponRecoil(recoil, direction.normalized, x, y);
         }
     }
 
@@ -271,9 +271,11 @@ public class WeaponShooting : Weapon
     }
 
 
-
-    public override void weaponRecoil(float recoil_strength, Vector3 recoil_direction)
+    //x andd y are random floats given by the spread value of the recoil
+    public override void weaponRecoil(float recoil_strength, Vector3 recoil_direction, float x, float y)
     {
+        int randomnessWeight = 3;
+
         //push player
         PlayerMovement.Recoil(recoil_strength, recoil_direction);
 
@@ -300,7 +302,7 @@ public class WeaponShooting : Weapon
         //camHolder.localRotation = Quaternion.Euler(-rec_dir.x, 0f, 0f);
         */
 
-        camRecoil.Fire(recoil_direction, rotation_speed, return_speed, recoil_strength);
+        camRecoil.Fire(new Vector3(1+randomnessWeight*x, 0.5f+randomnessWeight*y, 0), rotation_speed, return_speed, recoil_strength);
     }
 
 

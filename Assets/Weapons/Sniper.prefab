@@ -146,7 +146,7 @@ MonoBehaviour:
   coll: {fileID: 8126890606643664342}
   local_position: {x: -2.76, y: 0.28, z: 0.66}
   local_rotation: {x: -1.557, y: 2.557, z: -1.97}
-  maxforce: 70
+  maxforce: 100
   throwChargingSpeed: 50
   stunDurationMultiplier: 3
   minDropForwardForce: 20
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloading: 0
-  damage: 150
+  damage: 200
   magazineSize: 5
   bulletsPerTap: 1
   timeBetweenShooting: 1.5
@@ -184,7 +184,7 @@ MonoBehaviour:
   recoil: 5
   allowButtonHold: 0
   recoil_direction: {x: 6, y: 4, z: 2}
-  rotation_speed: 6
+  rotation_speed: 5
   return_speed: 25
   shake_preset: {fileID: 11400000, guid: 0b5cb902c1f05f049816ca93873cb4f9, type: 2}
   bulletTrail: {fileID: 120648884187509030, guid: d2ec70c814159504cb3e12e99b00b151,
@@ -222,7 +222,6 @@ MonoBehaviour:
     type: 3}
   smokeTrail: {fileID: 1000012560919920, guid: 85a8865d1bf4a63478038fae23776de8, type: 3}
   smokeTransform: {fileID: 7315134437326948978}
-  audioSource: {fileID: 9013740917892736589}
   durabilityDecreaseClip: {fileID: 8300000, guid: 5489eea5366f0954c90f4d0b38b31196,
     type: 3}
   weaponDestructionClip: {fileID: 8300000, guid: bd1a6b1d72c07f94db51b396651da3de,

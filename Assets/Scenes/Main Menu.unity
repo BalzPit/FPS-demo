@@ -2120,8 +2120,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -29.300018}
-  m_SizeDelta: {x: -312, y: -128}
+  m_AnchoredPosition: {x: 38.7, y: -29.300018}
+  m_SizeDelta: {x: -234.6, y: -128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1617762051
 MonoBehaviour:
@@ -2141,10 +2141,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "W A S D: \tMovement\nShift: \t\tSprint\nSpace: \tJump\nCtrl: \t\tCrouch
-    / Slide(while sprinting)\nC: \t\tGrappling hook\nQ: \t\tGrenade\nE: \t\tPick up
-    weapon\nR: \t\tReload weapon\nL Mouse: \tFire weapon\nR Mouse: \tDrop / Throw
-    weapon(hold)"
+  m_text: "W A S D: \tMovement\nShift: \t\tSprint\nSpace: \tJump / Detatch grappling
+    hook (while hooked)\nCtrl: \t\tCrouch / Slide(while sprinting)\nC: \t\tGrappling
+    hook\nQ: \t\tGrenade\nE: \t\tPick up weapon\nR: \t\tReload weapon\nL Mouse: \tFire
+    weapon\nR Mouse: \tDrop / Throw weapon(hold)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2213,10 +2213,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1617762051}
-    characterCount: 217
+    characterCount: 257
     spriteCount: 0
-    spaceCount: 51
-    wordCount: 36
+    spaceCount: 57
+    wordCount: 41
     linkCount: 0
     lineCount: 10
     pageCount: 1
